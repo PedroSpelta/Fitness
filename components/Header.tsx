@@ -16,7 +16,7 @@ function Header() {
           className={`bg-blue-700 text-white font-semibold flex`}
           style={{ width: containerWidth }}
         >
-          <p className="hover:bg-blue-900 p-3">Home</p>
+          <p className="hover:bg-blue-900 py-3 pr-3">Home</p>
           <p className="hover:bg-blue-900 p-3">Food</p>
           <p className="hover:bg-blue-900 p-3">Data</p>
         </div>
