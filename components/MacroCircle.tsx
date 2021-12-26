@@ -15,13 +15,13 @@ function MacroCircle({
 
   return (
     <div
-      className="rounded-full w-[100px] h-[100px] flex justify-center items-center"
+      className="rounded-full w-[60px] h-[60px] flex justify-center items-center"
       style={{
         backgroundColor: "blue",
         backgroundImage: `linear-gradient(${gradient} 50%, transparent 50%), linear-gradient(180deg, transparent 50%, white 50%)`,
       }}
     >
-      <div className="rounded-full w-[70px] h-[70px] bg-white flex justify-center items-center">
+      <div className="rounded-full  w-[40px] h-[40px] bg-white flex justify-center items-center">
         {absolute}
       </div>
     </div>
