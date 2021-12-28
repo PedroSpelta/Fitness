@@ -39,27 +39,27 @@ function DietResult() {
       <p className="text-xl font-semibold pb-3">Resultado</p>
 
       {/* Base metabolism*/}
-      <p>Metabolismo basal</p>
+      <p className="pt-3">Metabolismo basal</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {basal} kcal
       </div>
 
       {/* Desired consume */}
-      <p>Consumo diário</p>
+      <p className="pt-3">Consumo diário</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {recConsume} kcal
       </div>
 
       {/* Protein per day */}
-      <p>Proteina/dia (g)</p>
+      <p className="pt-3">Proteina/dia (g)</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {protDay} g
       </div>
-      <p>Gordura/dia (g)</p>
+      <p className="pt-3">Gordura/dia (g)</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {fatDay} g
       </div>
-      <p>Carbo/dia (g)</p>
+      <p className="pt-3">Carbo/dia (g)</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {carboDay} g
       </div>

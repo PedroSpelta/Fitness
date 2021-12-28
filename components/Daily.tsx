@@ -12,28 +12,25 @@ function Daily() {
   };
 
   const todayData = {
-    calories: 100,
+    calories: 3000,
     carbo: 10,
     fat: 16,
     protein: 16,
   };
 
+  const dailyCalWidth = `${((todayData.calories/personalData.calories)*100).toFixed(0)}%`
+
   return (
-    <div className={` h-[50px] bg-blue-600`} style={{ width: containerWidth }}>
-      {/* header */}
-      <div className="flex justify-between">
-        <p className="text-lg font-semibold">Seu dia</p>
-      </div>
-      {/* body */}
-      <div className="bg-red-500 flex justify-between">
+    <div className="border border-gray-400 max-w-3xl w-full p-5 mt-8">
+      <div className="flex justify-between w-full">
         <div>
-          <p>Restam:</p>
-          <span className="text-4xl">
+          <p className="text-sm text-gray-400">Restam:</p>
+          <span className="text-4xl font-semibold">
             {personalData.calories - todayData.calories}
           </span>
-          <span className="text-xs">kcal</span>
+          <span className="text-xs text-gray-500">kcal</span>
         </div>
-        <div className="bg-red-500 flex justify-end">
+        <div className=" flex justify-end">
           <MacroCircle
             percentage={todayData.carbo / personalData.carbo}
             absolute={personalData.carbo}
@@ -48,6 +45,11 @@ function Daily() {
           />
         </div>
       </div>
+      <div className="w-full border-gray-900 bg-gray-300 rounded-md">
+      <div className={`mt-3 h-6 bg-gray-900 rounded-md`} style={{width:dailyCalWidth}}></div>
+
+      </div>
+      {dailyCalWidth}
     </div>
   );
 }

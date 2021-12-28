@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { usePersonalDataContext } from "../context/personalData";
 
-const inputStyle: string =
-  "bg-gray-200 p-2 rounded-md w-40 text-sm h-[34px]";
+const inputStyle: string = "bg-gray-200 p-2 rounded-md w-40 text-sm h-[34px]";
 
 function DietForm() {
   const [bioTip, setBioTip] = useState(true);
@@ -27,7 +26,7 @@ function DietForm() {
         <p className="text-xl pb-3 font-semibold">Informações</p>
 
         {/* sexo */}
-        <label htmlFor="sex">Sexo:</label>
+        <label htmlFor="sex" className="pt-3">Sexo:</label>
         <select
           name="sex"
           id="sex"
@@ -38,7 +37,7 @@ function DietForm() {
           <option value="female">Mulher</option>
         </select>
         {/* Biotipo */}
-        <label htmlFor="bio">Biotipo:</label>
+        <label htmlFor="bio" className="pt-3">Biotipo:</label>
         <div
           className="relative"
           onMouseEnter={() => setBioTip((state: boolean) => !state)}
@@ -67,19 +66,22 @@ function DietForm() {
           </select>
         </div>
         {/* Idade */}
-        <label htmlFor="age">Idade:</label>
-        <input
-          type="number"
-          name="age"
-          id="age"
-          value={Number(age).toString()}
-          onChange={(e) => {
-            setAge(Number(e.target.value));
-          }}
-          className={inputStyle}
-        />
+        <label htmlFor="age" className="pt-3">Idade:</label>
+        <div className="relative w-40">
+          <p className="absolute right-2 pt-1 ">anos</p>
+          <input
+            type="number"
+            name="age"
+            id="age"
+            value={Number(age).toString()}
+            onChange={(e) => {
+              setAge(Number(e.target.value));
+            }}
+            className={inputStyle}
+          />
+        </div>
         {/* Altura */}
-        <label htmlFor="height">Altura em cm:</label>
+        <label htmlFor="height" className="pt-3">Altura em cm:</label>
         <div className="relative w-40">
           <p className="absolute right-2 pt-1 ">cm</p>
           <input
@@ -92,17 +94,21 @@ function DietForm() {
           />
         </div>
         {/* Peso */}
-        <label htmlFor="weight">Peso em kg:</label>
-        <input
-          type="number"
-          name="weight"
-          id="weight"
-          value={Number(weight).toString()}
-          onChange={(e) => setWeight(Number(e.target.value))}
-          className={inputStyle}
-        />
+        <label htmlFor="weight" className="pt-3">Peso em kg:</label>
+        <div className="relative w-40">
+          <p className="absolute right-2 pt-1 ">kg</p>
+
+          <input
+            type="number"
+            name="weight"
+            id="weight"
+            value={Number(weight).toString()}
+            onChange={(e) => setWeight(Number(e.target.value))}
+            className={inputStyle}
+          />
+        </div>
         {/* Objetivo */}
-        <label htmlFor="objective">Objetivo:</label>
+        <label htmlFor="objective" className="pt-3">Objetivo:</label>
         <select
           name="objective"
           id="objective"

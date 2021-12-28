@@ -1,23 +1,49 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { containerWidth } from "../libs/containers";
 
 function Header() {
+  const router = useRouter();
+  const { pathname } = router;
+  console.log(pathname);
+
   return (
     <div className="w-full flex flex-col items-center">
       <div
         className={`text-blue-700 text-2xl font-black my-5 max-w-3xl w-full`}
-
       >
-        Spelta
+        Smart Lifter
       </div>
       <div className="w-full flex justify-center bg-blue-700">
         <div
           className={`bg-blue-700 text-white font-semibold flex max-w-3xl w-full`}
-          
         >
-          <p className="hover:bg-blue-900 py-3 pr-3">Home</p>
-          <p className="hover:bg-blue-900 p-3">Food</p>
-          <p className="hover:bg-blue-900 p-3">Data</p>
+          <Link href={"/home"} passHref>
+            <p
+              className={` p-3 cursor-pointer ${
+                pathname === "/home" && "bg-blue-900"
+              }`}
+            >
+              Home
+            </p>
+          </Link>
+          <Link href={"/data"} passHref>
+            <p
+              className={` p-3 cursor-pointer ${
+                pathname === "/data" && "bg-blue-900"
+              }`}
+            >
+              Data
+            </p>
+          </Link>
+          <p
+            className={` p-3 cursor-pointer ${
+              pathname === "/food" && "bg-blue-900"
+            }`}
+          >
+            Food
+          </p>
         </div>
       </div>
     </div>
