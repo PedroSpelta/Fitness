@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { usePersonalDataContext } from "../context/personalData";
 
-const inputStyle: string = "bg-gray-200 p-2 rounded-md w-40";
+const inputStyle: string =
+  "bg-gray-200 p-2 rounded-md w-40 text-sm h-[34px]";
 
 function DietForm() {
   const [bioTip, setBioTip] = useState(true);
@@ -11,6 +12,9 @@ function DietForm() {
     height,
     weight,
     protkg,
+    setType,
+    setObjective,
+    setSex,
     setAge,
     setFatkg,
     setWeight,
@@ -20,9 +24,16 @@ function DietForm() {
   return (
     <div className="pt-10 col-span-1">
       <form className="flex flex-col">
+        <p className="text-xl pb-3 font-semibold">Informações</p>
+
         {/* sexo */}
         <label htmlFor="sex">Sexo:</label>
-        <select name="sex" id="sex" className={inputStyle}>
+        <select
+          name="sex"
+          id="sex"
+          className={inputStyle}
+          onChange={(e) => setSex(e.target.value)}
+        >
           <option value="male">Homem</option>
           <option value="female">Mulher</option>
         </select>
@@ -44,7 +55,12 @@ function DietForm() {
             <br />
             Endomorfo tendência a ter corpo mais largo.
           </p>
-          <select name="bio" id="bio" className={`${inputStyle}`}>
+          <select
+            name="bio"
+            id="bio"
+            className={`${inputStyle}`}
+            onChange={(e) => setType(e.target.value)}
+          >
             <option value="ecto">Ectomorfo</option>
             <option value="meso">Mesomorfo</option>
             <option value="endo">Endomorfo</option>
@@ -64,14 +80,17 @@ function DietForm() {
         />
         {/* Altura */}
         <label htmlFor="height">Altura em cm:</label>
-        <input
-          type="number"
-          name="height"
-          id="height"
-          value={Number(height).toString()}
-          onChange={(e) => setHeight(Number(e.target.value))}
-          className={inputStyle}
-        />
+        <div className="relative w-40">
+          <p className="absolute right-2 pt-1 ">cm</p>
+          <input
+            type="number"
+            name="height"
+            id="height"
+            value={Number(height).toString()}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            className={inputStyle}
+          />
+        </div>
         {/* Peso */}
         <label htmlFor="weight">Peso em kg:</label>
         <input
@@ -84,9 +103,14 @@ function DietForm() {
         />
         {/* Objetivo */}
         <label htmlFor="objective">Objetivo:</label>
-        <select name="objective" id="objective" className={inputStyle}>
-          <option value="lose">Perder</option>
+        <select
+          name="objective"
+          id="objective"
+          className={inputStyle}
+          onChange={(e) => setObjective(e.target.value)}
+        >
           <option value="mantain">Manter</option>
+          <option value="lose">Perder</option>
           <option value="gain">Ganhar</option>
         </select>
         {/* Protein range */}

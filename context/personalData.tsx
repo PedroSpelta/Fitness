@@ -1,10 +1,8 @@
 import React, {
   createContext,
-  ReactNode,
   useContext,
   useState,
   FC,
-  SetStateAction,
   Dispatch,
 } from "react";
 
@@ -14,11 +12,17 @@ interface IDataContext {
   fatkg: number;
   weight: number;
   height: number;
+  sex: string;
+  objective: string;
+  type: string;
+  setType: Dispatch<string>;
+  setObjective: Dispatch<string>;
   setAge: Dispatch<number>;
   setFatkg: Dispatch<number>;
   setWeight: Dispatch<number>;
   setProtkg: Dispatch<number>;
   setHeight: Dispatch<number>;
+  setSex: Dispatch<string>;
 }
 
 const DataContext = createContext<IDataContext>();
@@ -29,6 +33,9 @@ export const DataWrapper: FC = ({ children }) => {
   const [age, setAge] = useState(18);
   const [height, setHeight] = useState(175);
   const [weight, setWeight] = useState(75);
+  const [sex, setSex] = useState("male");
+  const [objective, setObjective] = useState("mantain");
+  const [type, setType] = useState("ecto");
   return (
     <DataContext.Provider
       value={{
@@ -37,6 +44,12 @@ export const DataWrapper: FC = ({ children }) => {
         age,
         weight,
         height,
+        sex,
+        objective,
+        type,
+        setType,
+        setObjective,
+        setSex,
         setProtkg,
         setFatkg,
         setAge,
