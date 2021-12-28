@@ -5,16 +5,15 @@ function Header() {
   return (
     <div className="w-full flex flex-col items-center">
       <div
-        className={`text-blue-700 text-2xl font-black my-5`}
-        style={{ width: containerWidth }}
+        className={`text-blue-700 text-2xl font-black my-5 max-w-3xl w-full`}
 
       >
         Spelta
       </div>
       <div className="w-full flex justify-center bg-blue-700">
         <div
-          className={`bg-blue-700 text-white font-semibold flex`}
-          style={{ width: containerWidth }}
+          className={`bg-blue-700 text-white font-semibold flex max-w-3xl w-full`}
+          
         >
           <p className="hover:bg-blue-900 py-3 pr-3">Home</p>
           <p className="hover:bg-blue-900 p-3">Food</p>
