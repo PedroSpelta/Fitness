@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React from "react";
 import Daily from "../../components/Daily";
+import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
 
 const index: NextPage = () => {
@@ -12,6 +13,7 @@ const index: NextPage = () => {
         </p>
       </div>
 		<Daily />
+    <FoodDaily />
   </div>;
 };
 

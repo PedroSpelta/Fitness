@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { containerWidth } from "../libs/containers";
+import FoodDaily from "./FoodDaily";
 import MacroCircle from "./MacroCircle";
 
 function Daily() {
