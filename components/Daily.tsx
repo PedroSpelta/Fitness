@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { containerWidth } from "../libs/containers";
-import FoodDaily from "./FoodDaily";
 import MacroCircle from "./MacroCircle";
 
 function Daily() {
@@ -32,17 +30,18 @@ function Daily() {
           <span className="text-xs text-gray-500">kcal</span>
         </div>
         <div className=" flex justify-end">
-          <MacroCircle
-            percentage={todayData.carbo / personalData.carbo}
-            absolute={personalData.carbo}
+
+        <MacroCircle
+            completed={todayData.protein}
+            missing={ personalData.protein -todayData.protein}
           />
           <MacroCircle
-            percentage={todayData.fat / personalData.fat}
-            absolute={personalData.fat}
+            completed={todayData.carbo}
+            missing={personalData.carbo -todayData.carbo}
           />
           <MacroCircle
-            percentage={todayData.protein / personalData.protein}
-            absolute={personalData.protein}
+            completed={todayData.fat}
+            missing={personalData.fat -todayData.fat}
           />
         </div>
       </div>

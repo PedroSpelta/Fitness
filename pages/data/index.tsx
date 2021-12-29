@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import React from "react";
-import Daily from "../../components/Daily";
 import DietForm from "../../components/DietForm";
 import DietResult from "../../components/DietResult";
 import Header from "../../components/Header";

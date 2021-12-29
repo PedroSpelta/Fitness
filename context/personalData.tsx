@@ -3,39 +3,43 @@ import React, {
   useContext,
   useState,
   FC,
-  Dispatch,
+  useEffect,
 } from "react";
+import { defaultBodyData } from "../libs/constants";
+import { IBodyData, IDataContext } from "../libs/interfaces";
 
-interface IDataContext {
-  age: number;
-  protkg: number;
-  fatkg: number;
-  weight: number;
-  height: number;
-  sex: string;
-  objective: string;
-  type: string;
-  setType: Dispatch<string>;
-  setObjective: Dispatch<string>;
-  setAge: Dispatch<number>;
-  setFatkg: Dispatch<number>;
-  setWeight: Dispatch<number>;
-  setProtkg: Dispatch<number>;
-  setHeight: Dispatch<number>;
-  setSex: Dispatch<string>;
-}
 
-const DataContext = createContext<IDataContext>();
+
+const DataContext = createContext<IDataContext>(null!);
 
 export const DataWrapper: FC = ({ children }) => {
-  const [protkg, setProtkg] = useState(200);
-  const [fatkg, setFatkg] = useState(100);
-  const [age, setAge] = useState(18);
-  const [height, setHeight] = useState(175);
-  const [weight, setWeight] = useState(75);
-  const [sex, setSex] = useState("male");
-  const [objective, setObjective] = useState("mantain");
-  const [type, setType] = useState("ecto");
+  // if (local) return;
+  const [protkg, setProtkg] = useState(defaultBodyData.protkg);
+  const [fatkg, setFatkg] = useState(defaultBodyData.fatkg);
+  const [age, setAge] = useState(defaultBodyData.age);
+  const [height, setHeight] = useState(defaultBodyData.height);
+  const [weight, setWeight] = useState(defaultBodyData.weight);
+  const [sex, setSex] = useState(defaultBodyData.sex);
+  const [objective, setObjective] = useState(defaultBodyData.objective);
+  const [type, setType] = useState(defaultBodyData.type);
+  const [calories, setCalories] = useState(0);
+
+  useEffect(() => {
+    const localPersonalDataString = localStorage.getItem("personalData");
+    if (!localPersonalDataString) return;
+    const localPersonalData: IBodyData = JSON.parse(
+      localPersonalDataString || "{}"
+    );
+
+    setProtkg(localPersonalData.protkg);
+    setFatkg(localPersonalData.fatkg);
+    setAge(localPersonalData.age);
+    setHeight(localPersonalData.height);
+    setWeight(localPersonalData.weight);
+    setSex(localPersonalData.sex);
+    setObjective(localPersonalData.objective);
+    setType(localPersonalData.type);
+  }, []);
   return (
     <DataContext.Provider
       value={{
@@ -47,6 +51,8 @@ export const DataWrapper: FC = ({ children }) => {
         sex,
         objective,
         type,
+        calories,
+        setCalories,
         setType,
         setObjective,
         setSex,

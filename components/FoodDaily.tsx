@@ -6,28 +6,10 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const dougData = {
-  labels: ["Proteína", "Carboidrato", "Gordura"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
 const dougOptions = {
+  // for a semi circle
+  // rotation: -90,
+  // circumference: 180,
   responsive: true,
   plugins: {
     legend: {
@@ -36,24 +18,31 @@ const dougOptions = {
   },
 };
 
-function FoodDaily() {
-  const meal = [
-    {
-      name: "Chicken",
-      quantity: 100,
-      carb: 1,
-      prot: 30,
-      fat: 5,
-    },
-    {
-      name: "Rice",
-      quantity: 300,
-      carb: 80, // const;
+interface IIngredient {
+  name: string;
+  carb: number;
+  prot: number;
+  fat: number;
+  quantity: number;
+}
 
-      prot: 5,
-      fat: 1,
-    },
-  ];
+function FoodDaily({meal}: {meal: Array<IIngredient>}) {
+  // const meal = [
+  //   {
+  //     name: "Chicken",
+  //     quantity: 100,
+  //     carb: 1,
+  //     prot: 30,
+  //     fat: 5,
+  //   },
+  //   {
+  //     name: "Rice",
+  //     quantity: 300,
+  //     carb: 80,
+  //     prot: 5,
+  //     fat: 1,
+  //   },
+  // ];
 
   const dougData = {
     labels: ["Proteína", "Carboidrato", "Gordura"],

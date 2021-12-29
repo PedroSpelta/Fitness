@@ -12,14 +12,23 @@ const dic: { [char: string]: number } = {
 
 function DietResult() {
   //data provived from context
-  const { age, height, weight, protkg, fatkg, sex, objective, type } =
-    usePersonalDataContext();
+  const {
+    age,
+    height,
+    weight,
+    protkg,
+    fatkg,
+    sex,
+    objective,
+    type,
+    calories,
+    setCalories,
+  } = usePersonalDataContext();
 
-  const [recConsume, setRecConsume] = useState(0);
   // macro per day
   const protDay = (protkg * weight) / 100;
   const fatDay = (fatkg * weight) / 100;
-  const carboDay = (recConsume - (protDay * 4 + fatDay * 9)) / 4;
+  const carboDay = (calories - (protDay * 4 + fatDay * 9)) / 4;
   const basal: number =
     (sex === "male"
       ? Number((66.5 + 13.75 * weight + 5.03 * height - 6.8 * age).toFixed(0))
@@ -27,11 +36,11 @@ function DietResult() {
     dic[type];
 
   useEffect(() => {
-    if (objective === "mantain") return setRecConsume(Number(basal.toFixed(0)));
+    if (objective === "mantain") return setCalories(Number(basal.toFixed(0)));
     else if (objective === "gain")
-      return setRecConsume(Number((basal * 1.15).toFixed(0)));
-    setRecConsume(Number((basal * 0.85).toFixed(0)));
-  }, [objective, basal]);
+      return setCalories(Number((basal * 1.15).toFixed(0)));
+    setCalories(Number((basal * 0.85).toFixed(0)));
+  }, [objective, basal, setCalories]);
 
   return (
     <div className="col-span-2 pt-10">
@@ -47,7 +56,7 @@ function DietResult() {
       {/* Desired consume */}
       <p className="pt-3">Consumo diário</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
-        {recConsume} kcal
+        {calories} kcal
       </div>
 
       {/* Protein per day */}

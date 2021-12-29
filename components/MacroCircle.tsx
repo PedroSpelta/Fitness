@@ -1,29 +1,54 @@
 import React from "react";
-//https://stackoverflow.com/questions/21205652/how-to-draw-a-circle-sector-in-css
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function MacroCircle({
-  percentage,
-  absolute,
+  completed,
+  missing,
 }: {
-  percentage: number;
-  absolute: number;
+  completed: number;
+  missing: number;
 }) {
-  const color = percentage < 0.5 ? "white" : "blue";
-  const degree =
-    percentage < 0.5 ? 180 - percentage * 360 : 180 - (percentage - 0.5) * 360;
-  const gradient = `-${degree}deg, ${color}`;
+  const dougData = {
+    labels: [],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [completed, missing],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const dougOptions = {
+    // for a semi circle
+    rotation: -90,
+    circumference: 180,
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    tooltip: {
+      enabled: false,
+    },
+  };
 
   return (
-    <div
-      className="rounded-full w-[60px] h-[60px] flex justify-center items-center"
-      style={{
-        backgroundColor: "blue",
-        backgroundImage: `linear-gradient(${gradient} 50%, transparent 50%), linear-gradient(180deg, transparent 50%, white 50%)`,
-      }}
-    >
-      <div className="rounded-full  w-[40px] h-[40px] bg-white flex justify-center items-center">
-        {absolute}
-      </div>
+    <div className="w-20 h-20">
+      <Doughnut data={dougData} options={dougOptions} />
     </div>
   );
 }
