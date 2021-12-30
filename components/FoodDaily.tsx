@@ -3,6 +3,7 @@ import { borderColor } from "../styles/constants";
 import FoodIngredient from "./FoodIngredient";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { IIngredient, ITodayMeal, ITodayMeals } from "../libs/interfaces";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,41 +19,17 @@ const dougOptions = {
   },
 };
 
-interface IIngredient {
-  name: string;
-  carb: number;
-  prot: number;
-  fat: number;
-  quantity: number;
-}
-
-function FoodDaily({meal}: {meal: Array<IIngredient>}) {
-  // const meal = [
-  //   {
-  //     name: "Chicken",
-  //     quantity: 100,
-  //     carb: 1,
-  //     prot: 30,
-  //     fat: 5,
-  //   },
-  //   {
-  //     name: "Rice",
-  //     quantity: 300,
-  //     carb: 80,
-  //     prot: 5,
-  //     fat: 1,
-  //   },
-  // ];
-
+function FoodDaily({ meal }: { meal: ITodayMeal }) {
+  const quantity = meal.ingredients.reduce((prev,cur) => prev + cur.quantity, 0)
   const dougData = {
     labels: ["Proteína", "Carboidrato", "Gordura"],
     datasets: [
       {
         label: "# of Votes",
         data: [
-          meal.reduce((prev, cur) => prev + cur.prot, 0),
-          meal.reduce((prev, cur) => prev + cur.carb, 0),
-          meal.reduce((prev, cur) => prev + cur.fat, 0),
+          meal.ingredients.reduce((prev, cur) => prev + cur.prot, 0),
+          meal.ingredients.reduce((prev, cur) => prev + cur.carb, 0),
+          meal.ingredients.reduce((prev, cur) => prev + cur.fat, 0),
         ],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -75,10 +52,10 @@ function FoodDaily({meal}: {meal: Array<IIngredient>}) {
       style={{ borderColor: borderColor }}
     >
       <div className="flex justify-between max-w-lg border-b-2 border-black">
-        <p className="font-bold text-lg">Almoço</p>
-        <p className="font-bold text-lg">500g</p>
+        <p className="font-bold text-lg">{meal.name}</p>
+        <p className="font-bold text-lg">{quantity}g</p>
       </div>
-      {meal.map((ingredient, i) => (
+      {meal.ingredients.map((ingredient, i) => (
         <FoodIngredient key={i} ingredient={ingredient} />
       ))}
       <div

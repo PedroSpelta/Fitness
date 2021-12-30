@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 import DietForm from "../../components/DietForm";
 import DietResult from "../../components/DietResult";
 import Header from "../../components/Header";
 
-const index: NextPage = () => {
+const Index: NextPage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Header />
@@ -21,4 +21,4 @@ const index: NextPage = () => {
   );
 };
 
-export default index;
+export default Index;

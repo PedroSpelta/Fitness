@@ -1,44 +1,13 @@
 import type { NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 import Daily from "../../components/Daily";
 import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
+import { defaultTodayMeals } from "../../libs/constants";
 
-const index: NextPage = () => {
-  const todayMeals = [
-    [
-      {
-        name: "Chicken",
-        quantity: 100,
-        carb: 1,
-        prot: 30,
-        fat: 5,
-      },
-      {
-        name: "Rice",
-        quantity: 300,
-        carb: 80,
-        prot: 5,
-        fat: 1,
-      },
-    ],
-    [
-      {
-        name: "Chicken",
-        quantity: 100,
-        carb: 1,
-        prot: 30,
-        fat: 5,
-      },
-      {
-        name: "Rice",
-        quantity: 300,
-        carb: 80,
-        prot: 5,
-        fat: 1,
-      },
-    ],
-  ];
+const Index: NextPage = () => {
+  const [todayMeals, setTodayMeals] = useState(defaultTodayMeals)
+
   return (
     <div className="flex flex-col justify-center items-center">
       <Header />
@@ -49,10 +18,10 @@ const index: NextPage = () => {
       </div>
       <Daily />
       {todayMeals.map((meal, i) => {
-        return <FoodDaily key={i} meal={meal}/>;
+        return <FoodDaily key={i} meal={meal} />;
       })}
     </div>
   );
 };
 
-export default index;
+export default Index;

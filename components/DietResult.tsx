@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { usePersonalDataContext } from "../context/personalData";
 
-const dic: { [char: string]: number } = {
-  ecto: 1.2,
-  endo: 1,
-  meso: 1.1,
-  gain: 1.15,
-  mantain: 1,
-  lose: 0.85,
-};
 
 function DietResult() {
   //data provived from context
@@ -19,28 +11,24 @@ function DietResult() {
     protkg,
     fatkg,
     sex,
+    basal,
     objective,
     type,
     calories,
     setCalories,
+    setMacrosPerDay,
   } = usePersonalDataContext();
 
   // macro per day
   const protDay = (protkg * weight) / 100;
   const fatDay = (fatkg * weight) / 100;
   const carboDay = (calories - (protDay * 4 + fatDay * 9)) / 4;
-  const basal: number =
-    (sex === "male"
-      ? Number((66.5 + 13.75 * weight + 5.03 * height - 6.8 * age).toFixed(0))
-      : Number((665.1 + 9.56 * weight + 1.8 * height - 4.7 * age).toFixed(0))) *
-    dic[type];
+
+  
 
   useEffect(() => {
-    if (objective === "mantain") return setCalories(Number(basal.toFixed(0)));
-    else if (objective === "gain")
-      return setCalories(Number((basal * 1.15).toFixed(0)));
-    setCalories(Number((basal * 0.85).toFixed(0)));
-  }, [objective, basal, setCalories]);
+    setMacrosPerDay({ prot: protDay, fat: fatDay, carbo: carboDay });
+  }, [protDay, fatDay, carboDay, setMacrosPerDay]);
 
   return (
     <div className="col-span-2 pt-10">

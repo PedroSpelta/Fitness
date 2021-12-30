@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useFoodContext } from "../context/foodContext";
+import { usePersonalDataContext } from "../context/personalData";
+import { defaultTodayMeals } from "../libs/constants";
 import MacroCircle from "./MacroCircle";
 
 function Daily() {
-  const [] = useState();
+  const { calories, macrosPerDay } = usePersonalDataContext();
+  const { todayMeals } = useFoodContext();
+  
+  const [consumedMacros, setConsumedMacros] = useState({
+    prot: 0,
+    carb: 0,
+    fat: 0,
+  });
+
   const personalData = {
     calories: 3500,
     carbo: 150,
@@ -10,14 +21,25 @@ function Daily() {
     protein: 160,
   };
 
-  const todayData = {
-    calories: 3000,
-    carbo: 10,
-    fat: 16,
-    protein: 16,
-  };
+  useEffect(() => {
+    let carb = 0;
+    let prot = 0;
+    let fat = 0;
+    for (let m = 0; m < todayMeals.length; m += 1) {
+      const { ingredients } = todayMeals[m];
 
-  const dailyCalWidth = `${((todayData.calories/personalData.calories)*100).toFixed(0)}%`
+      for (let i = 0; i < ingredients.length; i += 1) {
+        carb += ingredients[i].carb;
+        prot += ingredients[i].prot;
+        fat += ingredients[i].fat;
+      }
+    }
+    setConsumedMacros({ carb, prot, fat });
+  }, [todayMeals]);
+
+  const dailyCalWidth = `${((calories / personalData.calories) * 100).toFixed(
+    0
+  )}%`;
 
   return (
     <div className="border border-gray-400 max-w-3xl w-full p-5 mt-8">
@@ -25,31 +47,31 @@ function Daily() {
         <div>
           <p className="text-sm text-gray-400">Restam:</p>
           <span className="text-4xl font-semibold">
-            {personalData.calories - todayData.calories}
+            {personalData.calories - calories}
           </span>
           <span className="text-xs text-gray-500">kcal</span>
         </div>
         <div className=" flex justify-end">
-
-        <MacroCircle
-            completed={todayData.protein}
-            missing={ personalData.protein -todayData.protein}
+          <MacroCircle
+            completed={consumedMacros.prot}
+            missing={personalData.protein - consumedMacros.prot}
           />
           <MacroCircle
-            completed={todayData.carbo}
-            missing={personalData.carbo -todayData.carbo}
+            completed={consumedMacros.carb}
+            missing={personalData.carbo - consumedMacros.carb}
           />
           <MacroCircle
-            completed={todayData.fat}
-            missing={personalData.fat -todayData.fat}
+            completed={consumedMacros.fat}
+            missing={personalData.fat - consumedMacros.fat}
           />
         </div>
       </div>
       <div className="w-full border-gray-900 bg-gray-300 rounded-md">
-      <div className={`mt-3 h-6 bg-gray-900 rounded-md`} style={{width:dailyCalWidth}}></div>
-
+        <div
+          className={`mt-3 h-6 bg-gray-900 rounded-md`}
+          style={{ width: dailyCalWidth }}
+        ></div>
       </div>
-      {dailyCalWidth}
     </div>
   );
 }
