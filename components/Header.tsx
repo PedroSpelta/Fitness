@@ -25,7 +25,16 @@ function Header() {
                 pathname === "/home" && "bg-blue-900"
               }`}
             >
-              Home
+              Diário
+            </p>
+          </Link>
+          <Link href={"/data"} passHref>
+            <p
+              className={` p-3 cursor-pointer ${
+                pathname === "/data" && "bg-blue-900"
+              }`}
+            >
+              Usuário
             </p>
           </Link>
           <Link href={"/data"} passHref>
@@ -37,13 +46,15 @@ function Header() {
               Data
             </p>
           </Link>
-          <p
-            className={` p-3 cursor-pointer ${
-              pathname === "/food" && "bg-blue-900"
-            }`}
-          >
-            Food
-          </p>
+          <Link href={"/ingredient/add"} passHref>
+            <p
+              className={` p-3 cursor-pointer ${
+                pathname === "/ingredient/add" && "bg-blue-900"
+              }`}
+            >
+              Igredient
+            </p>
+          </Link>
         </div>
       </div>
     </div>
