@@ -47,12 +47,10 @@ function MacroCircle({ macros }: { macros: IMacrosObject }) {
   };
 
   return (
-    <div className="w-32 h-32">
-      <Pie data={dougData} options={dougOptions} />
-      {/* <p className="absolute bottom-3.5 left-1/2 -translate-x-1/2 text-sm text-gray-600 -z-10">
-        {" "}
-        {missing + completed}
-      </p> */}
+    <div className="flex justify-center items-center">
+      <div className="w-32 h-32">
+        <Pie data={dougData} options={dougOptions} />
+      </div>
     </div>
   );
 }

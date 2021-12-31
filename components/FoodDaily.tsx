@@ -4,6 +4,7 @@ import FoodIngredient from "./FoodIngredient";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { IIngredient, ITodayMeal, ITodayMeals } from "../libs/interfaces";
+import FoodTotal from "./FoodTotal";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,7 +21,12 @@ const dougOptions = {
 };
 
 function FoodDaily({ meal }: { meal: ITodayMeal }) {
-  const quantity = meal.ingredients.reduce((prev,cur) => prev + cur.quantity, 0)
+  console.log(meal.ingredients);
+  
+  const quantity = meal.ingredients.reduce(
+    (prev, cur) => prev + cur.quantity,
+    0
+  );
   const dougData = {
     labels: ["Proteína", "Carboidrato", "Gordura"],
     datasets: [
@@ -53,13 +59,21 @@ function FoodDaily({ meal }: { meal: ITodayMeal }) {
     >
       <div className="flex justify-between max-w-lg border-b-2 border-black">
         <p className="font-bold text-lg">{meal.name}</p>
-        <p className="font-bold text-lg">{quantity}g</p>
+        <div className="flex text-center font-bold items-end">
+          <p className="w-12 bg-gray-300">Carb.</p>
+          <p className="w-12">Prot.</p>
+          <p className="w-12 bg-gray-300">Gord.</p>
+          <p className="w-14 ml-5">Peso</p>
+        </div>
       </div>
       {meal.ingredients.map((ingredient, i) => (
         <FoodIngredient key={i} ingredient={ingredient} />
       ))}
+      <div className="border-t-2 max-w-lg border-black">
+        <FoodTotal ingredients={meal.ingredients}/>
+      </div>
       <div
-        className="h-32 w-32 absolute right-5"
+        className="h-32 w-32 absolute right-5 invisible md:visible"
         style={{
           top: "50%",
           transform: "translate(0, -50%)",

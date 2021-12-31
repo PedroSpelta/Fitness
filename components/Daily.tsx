@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useFoodContext } from "../context/foodContext";
 import { usePersonalDataContext } from "../context/personalData";
+import DailyButton from "./DailyButton";
 import MacroCircle from "./MacroCircle";
 
 function Daily() {
@@ -65,9 +66,8 @@ function Daily() {
           ></div>
         </div>
       </div>
-      <div className="flex justify-center items-center">
-        <MacroCircle macros={consumedMacros} />
-      </div>
+      <MacroCircle macros={consumedMacros} />
+      <DailyButton />
     </div>
   );
 }

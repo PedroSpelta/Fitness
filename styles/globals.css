@@ -37,3 +37,7 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   margin: 0;
 }
+
+.addMealBtn:hover {
+  box-shadow: inset 0 2px 4px 0 rgb(0, 0, 0, 0.2);
+}

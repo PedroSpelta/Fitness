@@ -10,9 +10,14 @@ interface IIngredient {
 
 function FoodIngredient({ ingredient }: { ingredient: IIngredient }) {
   return (
-    <div className="flex mr-10 border-t-2 justify-between max-w-lg items-center">
+    <div className="flex border-t-2 justify-between max-w-lg items-center">
       <p>{ingredient.name}</p>
-      <p>{ingredient.quantity}g</p>
+      <div className="flex text-center">
+        <p className="w-12 bg-gray-300">{ingredient.carb} g</p>
+        <p className="w-12">{ingredient.prot} g</p>
+        <p className="w-12 bg-gray-300">{ingredient.fat} g</p>
+        <p className="ml-5 w-14 ">{ingredient.quantity} g</p>
+      </div>
     </div>
   );
 }
