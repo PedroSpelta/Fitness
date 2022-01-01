@@ -1,4 +1,4 @@
-import { updateDoc } from "firebase/firestore";
+import { query, updateDoc } from "firebase/firestore";
 import React, {
   createContext,
   useContext,
@@ -9,6 +9,7 @@ import React, {
 import { defaultBodyData } from "../libs/constants";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
 import { IBodyData, IDataContext } from "../libs/interfaces";
+import { useFoodContext } from "./foodContext";
 
 const dic: { [char: string]: number } = {
   ecto: 1.2,
@@ -38,11 +39,23 @@ export const DataWrapper: FC = ({ children }) => {
     fat: 0,
     carbo: 0,
   });
+  const { setTodayMeals } = useFoodContext();
 
   useEffect(() => {
     const getUserData = async () => {
       const userDoc = await getUserDocsHelper();
       const userData = userDoc.data().personal_info;
+      const date = new Date();
+      const dateString = `${("0" + date.getDate()).slice(-2)}/${(
+        "0" +
+        date.getMonth() +
+        1
+      ).slice(-2)}/${date.getFullYear()}`;
+      console.log(dateString);
+
+      console.log(userDoc.data().dates[dateString]);
+      setTodayMeals(userDoc.data().dates[dateString]);
+
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
       setAge(userData.age);
@@ -51,6 +64,8 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
+
+      // query(userDoc)
     };
     getUserData();
   }, []);
@@ -87,7 +102,6 @@ export const DataWrapper: FC = ({ children }) => {
     const userDoc = await getUserDocsHelper();
     const userRef = userDoc.ref;
     console.log(userRef);
-
     updateDoc(userRef, { personal_info: data });
   };
 

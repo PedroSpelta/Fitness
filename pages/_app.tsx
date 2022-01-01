@@ -5,11 +5,11 @@ import { FoodContextWrapper } from "../context/foodContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <DataWrapper>
-      <FoodContextWrapper>
+    <FoodContextWrapper>
+      <DataWrapper>
         <Component {...pageProps} />
-      </FoodContextWrapper>
-    </DataWrapper>
+      </DataWrapper>
+    </FoodContextWrapper>
   );
 }
 

@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import Daily from "../../components/Daily";
 import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
+import { useFoodContext } from "../../context/foodContext";
 import { defaultTodayMeals } from "../../libs/constants";
 
 const Index: NextPage = () => {
-  const [todayMeals, setTodayMeals] = useState(defaultTodayMeals)
+  const {todayMeals} = useFoodContext();
+  console.log("today", todayMeals);
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -16,7 +18,7 @@ const Index: NextPage = () => {
           Seu diário
         </p>
       </div>
-      
+
       <Daily />
       {todayMeals.map((meal, i) => {
         return <FoodDaily key={i} meal={meal} />;
