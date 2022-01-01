@@ -1,3 +1,4 @@
+import { updateDoc } from "firebase/firestore";
 import React, {
   createContext,
   useContext,
@@ -6,6 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import { defaultBodyData } from "../libs/constants";
+import { getUserDocsHelper } from "../libs/firebaseHelper";
 import { IBodyData, IDataContext } from "../libs/interfaces";
 
 const dic: { [char: string]: number } = {
@@ -38,19 +40,19 @@ export const DataWrapper: FC = ({ children }) => {
   });
 
   useEffect(() => {
-    const localPersonalDataString = localStorage.getItem("personalData");
-    if (!localPersonalDataString) return;
-    const localPersonalData: IBodyData = JSON.parse(
-      localPersonalDataString || "{}"
-    );
-    setProtkg(localPersonalData.protkg);
-    setFatkg(localPersonalData.fatkg);
-    setAge(localPersonalData.age);
-    setHeight(localPersonalData.height);
-    setWeight(localPersonalData.weight);
-    setSex(localPersonalData.sex);
-    setObjective(localPersonalData.objective);
-    setType(localPersonalData.type);
+    const getUserData = async () => {
+      const userDoc = await getUserDocsHelper();
+      const userData = userDoc.data().personal_info;
+      setProtkg(userData.protkg);
+      setFatkg(userData.fatkg);
+      setAge(userData.age);
+      setHeight(userData.height);
+      setWeight(userData.weight);
+      setSex(userData.sex);
+      setObjective(userData.objective);
+      setType(userData.type);
+    };
+    getUserData();
   }, []);
 
   useEffect(() => {
@@ -70,6 +72,25 @@ export const DataWrapper: FC = ({ children }) => {
     setCalories(Number((basal * 0.85).toFixed(0)));
   }, [objective, basal, setCalories]);
 
+  const updateUserInfo = async () => {
+    const data = {
+      protkg,
+      fatkg,
+      age,
+      height,
+      weight,
+      sex,
+      objective,
+      type,
+    };
+
+    const userDoc = await getUserDocsHelper();
+    const userRef = userDoc.ref;
+    console.log(userRef);
+
+    updateDoc(userRef, { personal_info: data });
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -84,6 +105,7 @@ export const DataWrapper: FC = ({ children }) => {
         calories,
         macrosPerDay,
         basal,
+        updateUserInfo,
         setMacrosPerDay,
         setCalories,
         setType,

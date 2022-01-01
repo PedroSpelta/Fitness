@@ -23,6 +23,7 @@ export interface IDataContext {
   calories: number;
   macrosPerDay: IMacrosPerDay;
   basal: number;
+  updateUserInfo: Function;
   setMacrosPerDay: Dispatch<IMacrosPerDay>;
   setCalories: Dispatch<number>;
   setType: Dispatch<string>;

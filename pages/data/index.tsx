@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
 import DietForm from "../../components/DietForm";
+import DietFormButton from "../../components/DietFormButton";
 import DietResult from "../../components/DietResult";
 import Header from "../../components/Header";
 
@@ -14,12 +15,14 @@ const Index: NextPage = () => {
         </p>
       </div>
       <div className="max-w-3xl w-full my-10 border">
-        <p className="text-2xl text-center font-bold mt-10">Recomendações de Dieta</p>
+        <p className="text-2xl text-center font-bold mt-10">
+          Recomendações de Dieta
+        </p>
         <div className="flex flex-wrap justify-evenly">
-        <DietForm />
-        <DietResult />
-
+          <DietForm />
+          <DietResult />
         </div>
+        <DietFormButton />
       </div>
     </div>
   );
