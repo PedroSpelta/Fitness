@@ -4,7 +4,7 @@ import { db } from "../utils/firebase";
 
 function IngredientForm() {
   const [name, setName] = useState("");
-  const [brand, setBrand] = useState("");
+  const [brand, setBrand] = useState("Genérico");
   const [portion, setPortion] = useState(0);
   const [carb, setCarb] = useState(0);
   const [prot, setProt] = useState(0);
@@ -101,6 +101,7 @@ function IngredientForm() {
             onChange={(e) => setSodium(Number(e.target.value))}
           />
         </div>
+        <div className="flex w-full justify-center">
         <button
           type="submit"
           onClick={(e) => onSubmit(e)}
@@ -108,6 +109,8 @@ function IngredientForm() {
         >
           Adicionar
         </button>
+
+        </div>
       </form>
     </div>
   );

@@ -1,4 +1,11 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import React, {
   createContext,
   useContext,
@@ -23,6 +30,19 @@ export const FoodContextWrapper: FC = ({ children }) => {
       const ingredientsData = ingredientsDocs.map((i) => i.data());
       console.log(ingredientsData);
     };
+
+    const testUser = async () => {
+      const userId = 1;
+
+      const userQuery = query(collection(db, "users"), where("id", "==", userId));
+      const userDocs = (await getDocs(userQuery)).docs;
+
+      const userDataColl = collection(db, "users", userDocs[0].id, "data");
+      const userDataDocs = (await getDocs(userDataColl)).docs;
+      const userData = userDataDocs.map((d) => d.data());
+      console.log(userData);
+    };
+    // testUser();
     // getData();
   }, []);
 

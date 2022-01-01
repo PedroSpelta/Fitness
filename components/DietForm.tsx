@@ -21,7 +21,7 @@ function DietForm() {
     setHeight,
   } = usePersonalDataContext();
   return (
-    <div className="pt-10 col-span-1">
+    <div className="pt-10 mx-10">
       <form className="flex flex-col">
         <p className="text-xl pb-3 font-semibold">Informações</p>
 

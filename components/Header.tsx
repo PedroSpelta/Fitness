@@ -6,7 +6,6 @@ import { containerWidth } from "../libs/containers";
 function Header() {
   const router = useRouter();
   const { pathname } = router;
-  console.log(pathname);
 
   return (
     <div className="w-full flex flex-col items-center">

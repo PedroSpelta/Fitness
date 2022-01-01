@@ -21,7 +21,6 @@ const dougOptions = {
 };
 
 function FoodDaily({ meal }: { meal: ITodayMeal }) {
-  console.log(meal.ingredients);
   
   const quantity = meal.ingredients.reduce(
     (prev, cur) => prev + cur.quantity,

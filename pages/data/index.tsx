@@ -13,9 +13,13 @@ const Index: NextPage = () => {
           Preencha com seus dados abaixo
         </p>
       </div>
-      <div className="grid-cols-3 max-w-3xl w-full grid">
+      <div className="max-w-3xl w-full my-10 border">
+        <p className="text-2xl text-center font-bold mt-10">Recomendações de Dieta</p>
+        <div className="flex flex-wrap justify-evenly">
         <DietForm />
         <DietResult />
+
+        </div>
       </div>
     </div>
   );

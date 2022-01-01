@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function DailyButton() {
@@ -6,9 +7,11 @@ function DailyButton() {
       <div className=" border rounded-lg border-gray-600 text-center text-gray-600 p-1.5 addMealBtn cursor-pointer">
         Adicionar refeição
       </div>
-      <div className="border rounded-lg border-gray-600 text-center text-gray-600 p-1.5 addMealBtn cursor-pointer">
-        Adicionar ingrediente
-      </div>
+      <Link href={"/ingredient/add"} passHref>
+        <div className="border rounded-lg border-gray-600 text-center text-gray-600 p-1.5 addMealBtn cursor-pointer">
+          Adicionar ingrediente
+        </div>
+      </Link>
     </div>
   );
 }

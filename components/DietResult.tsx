@@ -31,7 +31,7 @@ function DietResult() {
   }, [protDay, fatDay, carboDay, setMacrosPerDay]);
 
   return (
-    <div className="col-span-2 pt-10">
+    <div className="mx-10 pt-10">
       {/* Title */}
       <p className="text-xl font-semibold pb-3">Resultado</p>
 
