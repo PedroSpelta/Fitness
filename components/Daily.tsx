@@ -12,6 +12,7 @@ function Daily() {
     prot: 0,
     carb: 0,
     fat: 0,
+    calories: 0,
   });
 
   const personalData = {
@@ -33,10 +34,11 @@ function Daily() {
         fat += ingredients[i].fat;
       }
     }
-    setConsumedMacros({ carb, prot, fat });
+    const calories = (carb + prot) * 4 + fat * 9;
+    setConsumedMacros({ carb, prot, fat, calories });
   }, [todayMeals]);
 
-  const dailyCalWidth = `${((calories / personalData.calories) * 100).toFixed(
+  const dailyCalWidth = `${((consumedMacros.calories / calories) * 100).toFixed(
     0
   )}%`;
 
@@ -47,15 +49,13 @@ function Daily() {
           <div>
             <p className="text-sm text-gray-400">Restam:</p>
             <span className="text-4xl font-semibold">
-              {personalData.calories - calories}
+              {calories - consumedMacros.calories}
             </span>
             <span className="text-xs text-gray-500">kcal</span>
           </div>
           <div>
             <p className="text-sm text-gray-400">Meta:</p>
-            <span className="text-4xl font-semibold">
-              {personalData.calories}
-            </span>
+            <span className="text-4xl font-semibold">{calories}</span>
             <span className="text-xs text-gray-500">kcal</span>
           </div>
         </div>
