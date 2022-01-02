@@ -23,13 +23,15 @@ function FoodTotal({ ingredients }: { ingredients: Array<IIngredient> }) {
     setMealMacros({ carb, fat, prot, quantity });
   }, [ingredients]);
   return (
-    <div className="flex justify-between">
-      <p>Total</p>
-      <div className="flex text-center font-bold">
-        <p className="w-12 bg-gray-300">{mealMacros.carb} g</p>
-        <p className="w-12">{mealMacros.prot} g</p>
-        <p className="w-12 bg-gray-300">{mealMacros.fat} g</p>
-        <p className="w-14 ml-5 font-bold">{mealMacros.quantity} g</p>
+    <div className="border-t-2 max-w-lg border-black">
+      <div className="flex justify-between">
+        <p>Total</p>
+        <div className="flex text-center font-bold">
+          <p className="w-12 bg-gray-300">{mealMacros.carb} g</p>
+          <p className="w-12">{mealMacros.prot} g</p>
+          <p className="w-12 bg-gray-300">{mealMacros.fat} g</p>
+          <p className="w-14 ml-5 font-bold">{mealMacros.quantity} g</p>
+        </div>
       </div>
     </div>
   );

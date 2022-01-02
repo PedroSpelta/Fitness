@@ -5,6 +5,7 @@ import { borderColor } from "../styles/constants";
 import AddMealDoug from "./AddMealDoug";
 import FoodIngredient from "./FoodIngredient";
 import FoodIngredientNameInput from "./FoodIngredientNameInput";
+import FoodTotal from "./FoodTotal";
 
 const defaultIngredients: ITodayMeal = {
   name: "",
@@ -37,10 +38,8 @@ function AddMeal() {
         <FoodIngredient key={i} ingredient={ingredient} />
       ))}
       <FoodIngredientNameInput setMeal={setMeal} />
-      <div className="border-t-2 max-w-lg border-black">
-        {/* <FoodTotal ingredients={meal.ingredients}/> */}
-      </div>
-      <AddMealDoug meal={meal}/>
+      <FoodTotal ingredients={meal.ingredients} />
+      <AddMealDoug meal={meal} />
     </div>
   );
 }
