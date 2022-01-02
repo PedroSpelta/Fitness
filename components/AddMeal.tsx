@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Doughnut } from "react-chartjs-2";
 import { ITodayMeal } from "../libs/interfaces";
 import { borderColor } from "../styles/constants";
+import AddMealButton from "./AddMealButton";
 import AddMealDoug from "./AddMealDoug";
 import FoodIngredient from "./FoodIngredient";
 import FoodIngredientNameInput from "./FoodIngredientNameInput";
 import FoodTotal from "./FoodTotal";
 
-const defaultIngredients: ITodayMeal = {
+const defaultMeal: ITodayMeal = {
   name: "",
   ingredients: [],
 };
 
 function AddMeal() {
-  const [meal, setMeal] = useState(defaultIngredients);
+  const [meal, setMeal] = useState(defaultMeal);
   return (
     <div
       className={`w-full border max-w-3xl min-h-[156px] mt-3 p-3 relative bg-[#F6F6F6]`}
@@ -23,6 +23,10 @@ function AddMeal() {
         <div className="w-full">
           <input
             className="font-bold text-sm p-1 boxShadow w-[90%] mb-1 rounded-md"
+            value={meal.name}
+            onChange={(e) =>
+              setMeal((state) => ({ ...state, name: e.target.value }))
+            }
             type="text"
             placeholder="Título"
           />
@@ -39,6 +43,7 @@ function AddMeal() {
       ))}
       <FoodIngredientNameInput setMeal={setMeal} />
       <FoodTotal ingredients={meal.ingredients} />
+      <AddMealButton meal={meal} />
       <AddMealDoug meal={meal} />
     </div>
   );

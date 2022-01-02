@@ -1,4 +1,12 @@
-import { query, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import React, {
   createContext,
   useContext,
@@ -9,6 +17,8 @@ import React, {
 import { defaultBodyData } from "../libs/constants";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
 import { IBodyData, IDataContext } from "../libs/interfaces";
+import { getTodayDateString } from "../utils/date";
+import { db } from "../utils/firebase";
 import { useFoodContext } from "./foodContext";
 
 const dic: { [char: string]: number } = {
@@ -45,12 +55,7 @@ export const DataWrapper: FC = ({ children }) => {
     const getUserData = async () => {
       const userDoc = await getUserDocsHelper();
       const userData = userDoc.data().personal_info;
-      const date = new Date();
-      const dateString = `${("0" + date.getDate()).slice(-2)}/${(
-        "0" +
-        date.getMonth() +
-        1
-      ).slice(-2)}/${date.getFullYear()}`;
+      const dateString = getTodayDateString();
 
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
@@ -61,7 +66,12 @@ export const DataWrapper: FC = ({ children }) => {
       setObjective(userData.objective);
       setType(userData.type);
 
-      setTodayMeals(userDoc.data().dates[dateString] || []);
+      const q = query(collection(db, "users"), where("id", "==", 1));
+
+      const unsubscribe = onSnapshot(q, (doc) => {
+        setTodayMeals(doc.docs[0].data().dates[dateString] || []);
+      });
+
       // query(userDoc)
     };
     getUserData();
