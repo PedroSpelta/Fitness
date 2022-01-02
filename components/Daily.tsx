@@ -15,13 +15,6 @@ function Daily() {
     calories: 0,
   });
 
-  const personalData = {
-    calories: 3500,
-    carbo: 150,
-    fat: 80,
-    protein: 160,
-  };
-
   useEffect(() => {
     let carb = 0;
     let prot = 0;

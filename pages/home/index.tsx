@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
+import AddMeal from "../../components/AddMeal";
 import Daily from "../../components/Daily";
 import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
@@ -23,6 +24,7 @@ const Index: NextPage = () => {
       {todayMeals.map((meal, i) => {
         return <FoodDaily key={i} meal={meal} />;
       })}
+      <AddMeal />
     </div>
   );
 };

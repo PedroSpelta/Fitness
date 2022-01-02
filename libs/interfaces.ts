@@ -1,3 +1,4 @@
+import { DocumentData } from "firebase/firestore";
 import { Dispatch } from "react";
 
 export interface IBodyData {
@@ -50,9 +51,27 @@ export interface IIngredient {
   quantity: number;
 }
 
+export interface IIngredientMacroFirebase {
+  carb:number;
+  fat:number;
+  fiber:number;
+  prot:number;
+  sodium: number;
+}
+
+export interface IIngredientFirebase {
+  macros: IIngredientMacroFirebase;
+  name: string;
+  portion_size: number;
+}
+
+export interface IIngredientsFirebase extends Array<IIngredientFirebase> {};
+
 export interface IFoodContext {
   todayMeals: ITodayMeals;
+  ingredients: IIngredientsFirebase;
   setTodayMeals: Dispatch<ITodayMeals>;
+  setIngredients: Dispatch<IIngredientsFirebase>;
 }
 
 export interface ITodayMeal {
