@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Doughnut } from "react-chartjs-2";
 import { ITodayMeal } from "../libs/interfaces";
 import { borderColor } from "../styles/constants";
+import AddMealDoug from "./AddMealDoug";
 import FoodIngredient from "./FoodIngredient";
 import FoodIngredientNameInput from "./FoodIngredientNameInput";
 
@@ -38,15 +40,7 @@ function AddMeal() {
       <div className="border-t-2 max-w-lg border-black">
         {/* <FoodTotal ingredients={meal.ingredients}/> */}
       </div>
-      <div
-        className="h-32 w-32 absolute right-5 invisible md:visible"
-        style={{
-          top: "50%",
-          transform: "translate(0, -50%)",
-        }}
-      >
-        {/* <Doughnut data={dougData} options={dougOptions} /> */}
-      </div>
+      <AddMealDoug meal={meal}/>
     </div>
   );
 }
