@@ -6,19 +6,11 @@ import FoodIngredientNameInput from "./FoodIngredientNameInput";
 
 const defaultIngredients: ITodayMeal = {
   name: "",
-  ingredients: [
-    {
-      name: "arroz",
-      carb: 1,
-      prot: 2,
-      fat: 3,
-      quantity: 50,
-    },
-  ],
+  ingredients: [],
 };
 
 function AddMeal() {
-  const [meal, setIngredients] = useState(defaultIngredients);
+  const [meal, setMeal] = useState(defaultIngredients);
   return (
     <div
       className={`w-full border max-w-3xl min-h-[156px] mt-3 p-3 relative`}
@@ -36,7 +28,7 @@ function AddMeal() {
       {meal.ingredients.map((ingredient, i) => (
         <FoodIngredient key={i} ingredient={ingredient} />
       ))}
-      <FoodIngredientNameInput/>
+      <FoodIngredientNameInput setMeal={setMeal} />
       <div className="border-t-2 max-w-lg border-black">
         {/* <FoodTotal ingredients={meal.ingredients}/> */}
       </div>

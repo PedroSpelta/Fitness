@@ -1,6 +1,6 @@
-import React, { HtmlHTMLAttributes, useState } from "react";
+import React, { Dispatch, HtmlHTMLAttributes, useState } from "react";
 import { useFoodContext } from "../context/foodContext";
-import { IIngredientFirebase } from "../libs/interfaces";
+import { IIngredientFirebase, ITodayMeal } from "../libs/interfaces";
 
 interface IIngredient {
   name: string;
@@ -22,28 +22,40 @@ const defaultIngredient: IIngredientFirebase = {
   portion_size: 1,
 };
 
-function FoodIngredientNameInput() {
+function FoodIngredientNameInput({
+  setMeal,
+}: {
+  setMeal: (
+    value: ITodayMeal | ((prevValue: ITodayMeal) => ITodayMeal)
+  ) => void;
+}) {
   const { ingredients } = useFoodContext();
   const [selectedIngredient, setSelectedIngredient] =
     useState<IIngredientFirebase>(defaultIngredient);
   const [weight, setWeight] = useState(100);
 
   //the displaying macro nutrients
-  const carb =
-    (
-      (selectedIngredient.macros.carb * weight) /
-      selectedIngredient.portion_size
-    ).toFixed(0) || 0;
+  const carb: number =
+    Number(
+      (
+        (selectedIngredient.macros.carb * weight) /
+        selectedIngredient.portion_size
+      ).toFixed(0)
+    ) || 0;
   const prot =
-    (
-      (selectedIngredient.macros.prot * weight) /
-      selectedIngredient.portion_size
-    ).toFixed(0) || 0;
+    Number(
+      (
+        (selectedIngredient.macros.prot * weight) /
+        selectedIngredient.portion_size
+      ).toFixed(0)
+    ) || 0;
   const fat =
-    (
-      (selectedIngredient.macros.fat * weight) /
-      selectedIngredient.portion_size
-    ).toFixed(0) || 0;
+    Number(
+      (
+        (selectedIngredient.macros.fat * weight) /
+        selectedIngredient.portion_size
+      ).toFixed(0)
+    ) || 0;
 
   const inputHandler = (e: React.FormEvent<HTMLInputElement>) => {
     //type of textarea, so we can get the .value on ts
@@ -54,33 +66,58 @@ function FoodIngredientNameInput() {
     setSelectedIngredient(ingredient);
   };
 
+  const addMealHandler = () => {
+    const t = {
+      name: "",
+      ingredients: [
+        {
+          name: "arroz",
+          carb: 1,
+          prot: 2,
+          fat: 3,
+          quantity: 50,
+        },
+      ],
+    };
+    setMeal((prev: ITodayMeal) => ({
+      ...prev,
+      ingredients: [
+        ...prev.ingredients,
+        { carb, prot, fat, quantity: weight, name: selectedIngredient.name },
+      ],
+    }));
+  };
+
   return (
-    <div className="flex border-t-2 justify-between max-w-lg items-center">
-      <input
-        type="text"
-        className=" border-2 rounded-md pl-2 border-black"
-        list="ingredients-list"
-        onInput={(e) => inputHandler(e)}
-      />
-      <datalist id="ingredients-list">
-        {ingredients.map((i, index: number) => (
-          <option value={i.name} key={index} />
-        ))}
-      </datalist>
-      <div className="flex text-center">
-        <p className="w-12 bg-gray-300">{carb} g</p>
-        <p className="w-12">{prot} g</p>
-        <p className="w-12 bg-gray-300">{fat} g</p>
-        <div className="relative">
-          <input
-            type="number"
-            className="ml-5 w-14 border-2 rounded-md pl-2 border-black"
-            value={Number(weight.toString())}
-            onChange={(e) => setWeight(Number(e.target.value))}
-          />
-          <p className="right-2 top-0.5 absolute z-10">g</p>
+    <div>
+      <div className="flex border-t-2 justify-between max-w-lg items-center">
+        <input
+          type="text"
+          className=" border-2 rounded-md pl-2 border-black w-full"
+          list="ingredients-list"
+          onInput={(e) => inputHandler(e)}
+        />
+        <datalist id="ingredients-list">
+          {ingredients.map((i, index: number) => (
+            <option value={i.name} key={index} />
+          ))}
+        </datalist>
+        <div className="flex text-center">
+          <p className="w-12 bg-gray-300">{carb} g</p>
+          <p className="w-12">{prot} g</p>
+          <p className="w-12 bg-gray-300">{fat} g</p>
+          <div className="relative">
+            <input
+              type="number"
+              className="ml-5 w-14 border-2 rounded-md pl-2 border-black"
+              value={Number(weight.toString())}
+              onChange={(e) => setWeight(Number(e.target.value))}
+            />
+            <p className="right-2 top-0.5 absolute z-10">g</p>
+          </div>
         </div>
       </div>
+      <button onClick={addMealHandler}>Adicionar ingrediente</button>
     </div>
   );
 }
