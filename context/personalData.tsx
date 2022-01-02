@@ -51,10 +51,6 @@ export const DataWrapper: FC = ({ children }) => {
         date.getMonth() +
         1
       ).slice(-2)}/${date.getFullYear()}`;
-      console.log(dateString);
-
-      console.log(userDoc.data().dates[dateString]);
-      setTodayMeals(userDoc.data().dates[dateString]);
 
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
@@ -65,6 +61,7 @@ export const DataWrapper: FC = ({ children }) => {
       setObjective(userData.objective);
       setType(userData.type);
 
+      setTodayMeals(userDoc.data().dates[dateString] || []);
       // query(userDoc)
     };
     getUserData();

@@ -28,11 +28,7 @@ export const FoodContextWrapper: FC = ({ children }) => {
     const getIngredients = async () => {
       const ingredientsCol = collection(db, "ingredients");
       const ingredientsDocs = (await getDocs(ingredientsCol)).docs;
-      const ingredientsData = ingredientsDocs.map((i) => i.data()) as IIngredientsFirebase;
-      console.log(ingredientsDocs.map((i) => i.data()));
-      console.log(ingredientsData);
-      
-      
+      const ingredientsData = ingredientsDocs.map((i) => i.data()) as IIngredientsFirebase;     
       setIngredients(ingredientsData);
       
       // setIngredients(ingredientsData)
@@ -50,7 +46,6 @@ export const FoodContextWrapper: FC = ({ children }) => {
       const userDataColl = collection(db, "users", userDocs[0].id, "data");
       const userDataDocs = (await getDocs(userDataColl)).docs;
       const userData = userDataDocs.map((d) => d.data());
-      console.log(userData);
     };
     getIngredients();
     // getData();
