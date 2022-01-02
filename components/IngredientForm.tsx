@@ -51,7 +51,7 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={portion}
+            value={portion.toString()}
             onChange={(e) => setPortion(Number(e.target.value))}
           />
         </div>
@@ -61,7 +61,7 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={carb}
+            value={carb.toString()}
             onChange={(e) => setCarb(Number(e.target.value))}
           />
         </div>
@@ -70,7 +70,7 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={prot}
+            value={prot.toString()}
             onChange={(e) => setProt(Number(e.target.value))}
           />
         </div>
@@ -79,7 +79,7 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={fat}
+            value={fat.toString()}
             onChange={(e) => setFat(Number(e.target.value))}
           />
         </div>
@@ -88,7 +88,7 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={fiber}
+            value={fiber.toString()}
             onChange={(e) => setFiber(Number(e.target.value))}
           />
         </div>
@@ -97,19 +97,18 @@ function IngredientForm() {
           <input
             type="number"
             className="bg-gray-200 rounded-lg p-1"
-            value={sodium}
+            value={sodium.toString()}
             onChange={(e) => setSodium(Number(e.target.value))}
           />
         </div>
         <div className="flex w-full justify-center">
-        <button
-          type="submit"
-          onClick={(e) => onSubmit(e)}
-          className="border rounded-lg border-gray-600 text-center text-gray-600 p-1.5 addMealBtn cursor-pointer"
-        >
-          Adicionar
-        </button>
-
+          <button
+            type="submit"
+            onClick={(e) => onSubmit(e)}
+            className="border rounded-lg border-gray-600 text-center text-gray-600 p-1.5 addMealBtn cursor-pointer"
+          >
+            Adicionar
+          </button>
         </div>
       </form>
     </div>
