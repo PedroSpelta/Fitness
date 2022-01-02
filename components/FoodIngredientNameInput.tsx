@@ -91,12 +91,15 @@ function FoodIngredientNameInput({
   return (
     <div>
       <div className="flex border-t-2 justify-between max-w-lg items-center">
+        <div className="w-full">
         <input
           type="text"
-          className=" border-2 rounded-md pl-2 border-black w-full"
+          className=" pl-2 p-1 w-[90%] boxShadow rounded-md text-sm font-semibold"
           list="ingredients-list"
+          placeholder="Ingrediente"
           onInput={(e) => inputHandler(e)}
         />
+        </div>
         <datalist id="ingredients-list">
           {ingredients.map((i, index: number) => (
             <option value={i.name} key={index} />
@@ -109,15 +112,15 @@ function FoodIngredientNameInput({
           <div className="relative">
             <input
               type="number"
-              className="ml-5 w-14 border-2 rounded-md pl-2 border-black"
-              value={Number(weight.toString())}
+              className="ml-5 w-14 rounded-md pl-2 p-1 text-sm boxShadow font-semibold"
+              value={Number(weight).toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
             />
             <p className="right-2 top-0.5 absolute z-10">g</p>
           </div>
         </div>
       </div>
-      <button onClick={addMealHandler}>Adicionar ingrediente</button>
+      <button onClick={addMealHandler} className="addMealBtn border border-black rounded-md p-0.5 my-2 text-sm bg-white">Adicionar ingrediente</button>
     </div>
   );
 }

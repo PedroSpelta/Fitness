@@ -1,16 +1,13 @@
 import type { NextPage } from "next";
-import React, { useState } from "react";
+import React from "react";
 import AddMeal from "../../components/AddMeal";
 import Daily from "../../components/Daily";
 import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
 import { useFoodContext } from "../../context/foodContext";
-import { defaultTodayMeals } from "../../libs/constants";
 
 const Index: NextPage = () => {
   const {todayMeals} = useFoodContext();
-  console.log("today", todayMeals);
-
   return (
     <div className="flex flex-col justify-center items-center">
       <Header />
@@ -19,7 +16,6 @@ const Index: NextPage = () => {
           Seu diário
         </p>
       </div>
-
       <Daily />
       {todayMeals.map((meal, i) => {
         return <FoodDaily key={i} meal={meal} />;
