@@ -45,9 +45,9 @@ export const DataWrapper: FC = ({ children }) => {
   const [basal, setBasal] = useState(0);
   const [calories, setCalories] = useState(0);
   const [macrosPerDay, setMacrosPerDay] = useState({
-    prot: 0,
-    fat: 0,
-    carbo: 0,
+    prot: "0",
+    fat: "0",
+    carb: "0",
   });
   const { setTodayMeals } = useFoodContext();
 
@@ -56,6 +56,15 @@ export const DataWrapper: FC = ({ children }) => {
       const userDoc = await getUserDocsHelper();
       const userData = userDoc.data().personal_info;
       const dateString = getTodayDateString();
+      const macrosPerdayData = {
+        prot: ((protkg * weight) / 100).toFixed(0),
+        fat: ((fatkg * weight) / 100).toFixed(0),
+        carb: (
+          (calories -
+            ((protkg * weight * 4) / 100 + (fatkg * weight * 9) / 100)) /
+          4
+        ).toFixed(0),
+      };
 
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
@@ -65,6 +74,7 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
+      setMacrosPerDay(macrosPerdayData);
 
       const q = query(collection(db, "users"), where("id", "==", 1));
 
@@ -108,7 +118,6 @@ export const DataWrapper: FC = ({ children }) => {
 
     const userDoc = await getUserDocsHelper();
     const userRef = userDoc.ref;
-    console.log(userRef);
     updateDoc(userRef, { personal_info: data });
   };
 

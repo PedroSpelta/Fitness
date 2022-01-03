@@ -1,34 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { usePersonalDataContext } from "../context/personalData";
 
-
 function DietResult() {
   //data provived from context
-  const {
-    age,
-    height,
-    weight,
-    protkg,
-    fatkg,
-    sex,
-    basal,
-    objective,
-    type,
-    calories,
-    setCalories,
-    setMacrosPerDay,
-  } = usePersonalDataContext();
+  const { weight, protkg, fatkg, basal, calories } = usePersonalDataContext();
 
   // macro per day
   const protDay = (protkg * weight) / 100;
   const fatDay = (fatkg * weight) / 100;
   const carboDay = (calories - (protDay * 4 + fatDay * 9)) / 4;
-
-  
-
-  useEffect(() => {
-    setMacrosPerDay({ prot: protDay, fat: fatDay, carbo: carboDay });
-  }, [protDay, fatDay, carboDay, setMacrosPerDay]);
 
   return (
     <div className="mx-10 pt-10">

@@ -38,9 +38,9 @@ export interface IDataContext {
 }
 
 export interface IMacrosPerDay {
-  carbo: number;
-  prot: number;
-  fat: number;
+  carb: string;
+  prot: string;
+  fat: string;
 }
 
 export interface IIngredient {
