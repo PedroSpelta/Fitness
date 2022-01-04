@@ -22,12 +22,17 @@ export interface IDataContext {
   sex: string;
   objective: string;
   type: string;
-  calories: number;
-  macrosPerDay: IMacrosPerDay;
-  basal: number;
+  caloriesGoal: number;
+  caloriesBasal: number;
   updateUserInfo: Function;
-  setMacrosPerDay: Dispatch<IMacrosPerDay>;
-  setCalories: Dispatch<number>;
+  protPerDay: number;
+  fatPerDay: number;
+  carbPerDay: number;
+  setProtPerDay: Dispatch<number>;
+  setFatPerDay: Dispatch<number>;
+  setCarbPerDay: Dispatch<number>;
+  setCaloriesBasal: Dispatch<number>;
+  setCaloriesGoal: Dispatch<number>;
   setType: Dispatch<string>;
   setObjective: Dispatch<string>;
   setAge: Dispatch<number>;
@@ -54,10 +59,10 @@ export interface IIngredient {
 }
 
 export interface IIngredientMacroFirebase {
-  carb:number;
-  fat:number;
-  fiber:number;
-  prot:number;
+  carb: number;
+  fat: number;
+  fiber: number;
+  prot: number;
   sodium: number;
 }
 
@@ -67,7 +72,7 @@ export interface IIngredientFirebase {
   portion_size: number;
 }
 
-export interface IIngredientsFirebase extends Array<IIngredientFirebase> {};
+export interface IIngredientsFirebase extends Array<IIngredientFirebase> {}
 
 export interface IFoodContext {
   todayMeals: ITodayMeals;
@@ -82,3 +87,20 @@ export interface ITodayMeal {
 }
 
 export interface ITodayMeals extends Array<ITodayMeal> {}
+
+export interface IPersonalData {
+  age: number;
+  protkg: number;
+  fatkg: number;
+  carbkg: number;
+  weight: number;
+  height: number;
+  objective: string;
+  sex: string;
+  type: string;
+  calories_basal: number;
+  calories_goal: number;
+  prot_goal: number;
+  carb_goal: number;
+  fat_goal: number;
+}

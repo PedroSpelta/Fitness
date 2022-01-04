@@ -26,7 +26,9 @@ function DietForm() {
         <p className="text-xl pb-3 font-semibold">Informações</p>
 
         {/* sexo */}
-        <label htmlFor="sex" className="pt-3">Sexo:</label>
+        <label htmlFor="sex" className="pt-3">
+          Sexo:
+        </label>
         <select
           name="sex"
           id="sex"
@@ -37,7 +39,9 @@ function DietForm() {
           <option value="female">Mulher</option>
         </select>
         {/* Biotipo */}
-        <label htmlFor="bio" className="pt-3">Biotipo:</label>
+        <label htmlFor="bio" className="pt-3">
+          Biotipo:
+        </label>
         <div
           className="relative"
           onMouseEnter={() => setBioTip((state: boolean) => !state)}
@@ -66,7 +70,9 @@ function DietForm() {
           </select>
         </div>
         {/* Idade */}
-        <label htmlFor="age" className="pt-3">Idade:</label>
+        <label htmlFor="age" className="pt-3">
+          Idade:
+        </label>
         <div className="relative w-40">
           <p className="absolute right-2 pt-1 ">anos</p>
           <input
@@ -81,7 +87,9 @@ function DietForm() {
           />
         </div>
         {/* Altura */}
-        <label htmlFor="height" className="pt-3">Altura em cm:</label>
+        <label htmlFor="height" className="pt-3">
+          Altura em cm:
+        </label>
         <div className="relative w-40">
           <p className="absolute right-2 pt-1 ">cm</p>
           <input
@@ -94,7 +102,9 @@ function DietForm() {
           />
         </div>
         {/* Peso */}
-        <label htmlFor="weight" className="pt-3">Peso em kg:</label>
+        <label htmlFor="weight" className="pt-3">
+          Peso em kg:
+        </label>
         <div className="relative w-40">
           <p className="absolute right-2 pt-1 ">kg</p>
 
@@ -108,7 +118,9 @@ function DietForm() {
           />
         </div>
         {/* Objetivo */}
-        <label htmlFor="objective" className="pt-3">Objetivo:</label>
+        <label htmlFor="objective" className="pt-3">
+          Objetivo:
+        </label>
         <select
           name="objective"
           id="objective"
@@ -127,11 +139,11 @@ function DietForm() {
           type="range"
           min={0}
           max={500}
-          value={protkg}
-          onChange={(e) => setProtkg(Number(e.target.value))}
+          value={protkg * 100}
+          onChange={(e) => setProtkg(Number(e.target.value) / 100)}
           className="w-40 mt-3"
         />
-        <p className="text-center w-40">{protkg / 100}</p>
+        <p className="text-center w-40">{protkg}</p>
         {/* Fat range */}
         <label htmlFor="fatRange" className="mt-2">
           Gordura por kg:
@@ -140,11 +152,11 @@ function DietForm() {
           type="range"
           min={0}
           max={500}
-          value={fatkg}
-          onChange={(e) => setFatkg(Number(e.target.value))}
+          value={fatkg * 100}
+          onChange={(e) => setFatkg(Number(e.target.value) / 100)}
           className="w-40 mt-3"
         />
-        <p className="text-center w-40">{fatkg / 100}</p>
+        <p className="text-center w-40">{fatkg}</p>
       </form>
     </div>
   );

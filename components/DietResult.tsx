@@ -3,19 +3,19 @@ import { usePersonalDataContext } from "../context/personalData";
 
 function DietResult() {
   //data provived from context
-  const { weight, protkg, fatkg, basal, calories, setCarbkg } =
+  const { weight, protkg, fatkg, caloriesBasal, caloriesGoal } =
     usePersonalDataContext();
 
   // macro per day
-  const protDay = (protkg * weight) / 100;
-  const fatDay = (fatkg * weight) / 100;
-  const carboDay = (calories - (protDay * 4 + fatDay * 9)) / 4;
-  console.log(carboDay);
-  
+  const protDay = Number((protkg * weight).toFixed(2));
+  const fatDay = Number((fatkg * weight).toFixed(2));
+  const carboDay = Number(
+    ((caloriesGoal - (protDay * 4 + fatDay * 9)) / 4).toFixed(2)
+  );
 
-  useEffect(() => {
-    setCarbkg(carboDay / weight);
-  }, [carboDay, weight, setCarbkg]);
+  // useEffect(() => {
+  //   setCarbkg(carboDay / weight);
+  // }, [carboDay, weight, setCarbkg]);
 
   return (
     <div className="mx-10 pt-10">
@@ -23,15 +23,15 @@ function DietResult() {
       <p className="text-xl font-semibold pb-3">Resultado</p>
 
       {/* Base metabolism*/}
-      <p className="pt-3">Metabolismo basal</p>
+      <p className="pt-3">Metabolismo caloriesBasal</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
-        {basal} kcal
+        {caloriesBasal} kcal
       </div>
 
       {/* Desired consume */}
       <p className="pt-3">Consumo diário</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
-        {calories} kcal
+        {caloriesGoal} kcal
       </div>
 
       {/* Protein per day */}

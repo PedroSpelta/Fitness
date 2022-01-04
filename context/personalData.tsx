@@ -12,7 +12,7 @@ import React, {
   FC,
   useEffect,
 } from "react";
-import { defaultBodyData } from "../libs/constants";
+import { defaultUserData } from "../libs/constants";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
 import { IDataContext } from "../libs/interfaces";
 import { getTodayDateString } from "../utils/date";
@@ -31,23 +31,22 @@ const dic: { [char: string]: number } = {
 const DataContext = createContext<IDataContext>(null!);
 
 export const DataWrapper: FC = ({ children }) => {
-  // if (local) return;
-  const [protkg, setProtkg] = useState(defaultBodyData.protkg);
-  const [fatkg, setFatkg] = useState(defaultBodyData.fatkg);
-  const [carbkg, setCarbkg] = useState(defaultBodyData.carbkg);
-  const [age, setAge] = useState(defaultBodyData.age);
-  const [height, setHeight] = useState(defaultBodyData.height);
-  const [weight, setWeight] = useState(defaultBodyData.weight);
-  const [sex, setSex] = useState(defaultBodyData.sex);
-  const [objective, setObjective] = useState(defaultBodyData.objective);
-  const [type, setType] = useState(defaultBodyData.type);
-  const [basal, setBasal] = useState(0);
-  const [calories, setCalories] = useState(0);
-  const [macrosPerDay, setMacrosPerDay] = useState({
-    prot: "0",
-    fat: "0",
-    carb: "0",
-  });
+
+  const [sex, setSex] = useState(defaultUserData.sex);
+  const [height, setHeight] = useState(defaultUserData.height);
+  const [weight, setWeight] = useState(defaultUserData.weight);
+  const [type, setType] = useState(defaultUserData.type);
+  const [age, setAge] = useState(defaultUserData.age);
+  const [objective, setObjective] = useState(defaultUserData.objective);
+  const [caloriesBasal, setCaloriesBasal] = useState(0);
+  const [caloriesGoal, setCaloriesGoal] = useState(0);
+  const [protkg, setProtkg] = useState(defaultUserData.protkg);
+  const [fatkg, setFatkg] = useState(defaultUserData.fatkg);
+  const [carbkg, setCarbkg] = useState(defaultUserData.carbkg);
+  const [protPerDay, setProtPerDay] = useState(0);
+  const [fatPerDay, setFatPerDay] = useState(0);
+  const [carbPerDay, setCarbPerDay] = useState(0);
+
   const { setTodayMeals } = useFoodContext();
 
   useEffect(() => {
@@ -55,11 +54,10 @@ export const DataWrapper: FC = ({ children }) => {
       const userDoc = await getUserDocsHelper();
       const userData = userDoc.data().personal_info;
       const dateString = getTodayDateString();
-      const macrosPerdayData = {
-        prot: ((protkg * weight) / 100).toFixed(0),
-        fat: ((fatkg * weight) / 100).toFixed(0),
-        carb: ((carbkg * weight) / 100).toFixed(0),
-      };
+
+      setProtPerDay(Number(userData.prot_goal.toFixed(0)));
+      setFatPerDay(Number(userData.fat_goal.toFixed(0)));
+      setCarbPerDay(Number(userData.carb_goal.toFixed(0)));
 
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
@@ -70,15 +68,12 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
-      setMacrosPerDay(macrosPerdayData);
 
       const q = query(collection(db, "users"), where("id", "==", 1));
 
       const unsubscribe = onSnapshot(q, (doc) => {
         setTodayMeals(doc.docs[0].data().dates[dateString] || []);
       });
-
-      // query(userDoc)
     };
     getUserData();
   }, []);
@@ -90,15 +85,20 @@ export const DataWrapper: FC = ({ children }) => {
         : Number(
             (665.1 + 9.56 * weight + 1.8 * height - 4.7 * age).toFixed(0)
           )) * dic[type];
-    setBasal(basalA);
+    setCaloriesBasal(basalA);
   }, [weight, height, age, sex, type]);
 
   useEffect(() => {
-    if (objective === "mantain") return setCalories(Number(basal.toFixed(0)));
+    setCarbkg((caloriesGoal / weight - (fatkg * 9 + protkg * 4)) / 4);
+  }, [fatkg, protkg, setCarbkg, weight, caloriesGoal]);
+
+  useEffect(() => {
+    if (objective === "mantain")
+      return setCaloriesGoal(Number(caloriesBasal.toFixed(0)));
     else if (objective === "gain")
-      return setCalories(Number((basal * 1.15).toFixed(0)));
-    setCalories(Number((basal * 0.85).toFixed(0)));
-  }, [objective, basal, setCalories]);
+      return setCaloriesGoal(Number((caloriesBasal * 1.15).toFixed(0)));
+    setCaloriesGoal(Number((caloriesBasal * 0.85).toFixed(0)));
+  }, [objective, caloriesBasal, setCaloriesGoal]);
 
   const updateUserInfo = async () => {
     const data = {
@@ -111,7 +111,7 @@ export const DataWrapper: FC = ({ children }) => {
       protkg,
       carbkg,
       objective,
-      calories_goal: calories,
+      calories_goal: caloriesGoal,
       fat_goal: fatkg * weight,
       prot_goal: protkg * weight,
       carb_goal: carbkg * weight,
@@ -133,14 +133,19 @@ export const DataWrapper: FC = ({ children }) => {
         sex,
         objective,
         type,
-        calories,
-        macrosPerDay,
-        basal,
+        caloriesGoal,
+        caloriesBasal,
         carbkg,
+        protPerDay,
+        fatPerDay,
+        carbPerDay,
+        setProtPerDay,
+        setFatPerDay,
+        setCarbPerDay,
         setCarbkg,
         updateUserInfo,
-        setMacrosPerDay,
-        setCalories,
+        setCaloriesBasal,
+        setCaloriesGoal,
         setType,
         setObjective,
         setSex,

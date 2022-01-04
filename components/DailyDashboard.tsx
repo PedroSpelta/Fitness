@@ -6,7 +6,8 @@ import DailyDashboardCard from "./DailyDashboardCard";
 import DailyDashboarMacro from "./DailyDashboarMacro";
 
 function DailyDashboard() {
-  const { calories, macrosPerDay } = usePersonalDataContext();
+  const { caloriesGoal, protPerDay, fatPerDay, carbPerDay } =
+    usePersonalDataContext();
   const { todayMeals } = useFoodContext();
   const [consumedMacros, setConsumedMacros] = useState({
     prot: 0,
@@ -37,18 +38,18 @@ function DailyDashboard() {
       <DailyDashboardCard>
         <p className="text-sm font-semibold ">Metas</p>
         <p className="text-5xl font-bold mt-2">
-          {calories}
+          {caloriesGoal}
           <span className="text-sm font-normal">kcal</span>
         </p>
         <div className="grid grid-cols-3 text-sm mx-auto text-center mt-6">
           <div className="col-span-1">
-            <p className="text-sm">C: {macrosPerDay.carb}g</p>
+            <p className="text-sm">C: {carbPerDay}g</p>
           </div>
           <div className="col-span-1">
-            <p className="text-sm">P: {macrosPerDay.prot}g</p>
+            <p className="text-sm">P: {protPerDay}g</p>
           </div>
           <div className="col-span-1">
-            <p className="text-sm">G: {macrosPerDay.fat}g</p>
+            <p className="text-sm">G: {fatPerDay}g</p>
           </div>
         </div>
       </DailyDashboardCard>
@@ -67,10 +68,13 @@ function DailyDashboard() {
         <p className="text-sm font-semibold ">Calorias</p>
         <div className="relative mt-4">
           <DailyDashboardCalories
-            data={[consumedMacros.calories, calories - consumedMacros.calories]}
+            data={[
+              consumedMacros.calories,
+              caloriesGoal - consumedMacros.calories,
+            ]}
           />
           <p className="absolute bottom-0 right-[50%] translate-x-[50%] font-bold text-3xl -z-2">
-            {(consumedMacros.calories*100 / calories).toFixed(1)}%
+            {((consumedMacros.calories * 100) / caloriesGoal).toFixed(1)}%
           </p>
         </div>
       </DailyDashboardCard>

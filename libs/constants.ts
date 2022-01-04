@@ -2,51 +2,29 @@ export const defaultBodyData = {
   weight: 70,
   height: 170,
   protkg: 200,
-  fatkg: 100,
-  carbkg:300,
+  fatkg: 1.00,
+  carbkg: 3.00,
   sex: "male",
   objective: "mantain",
   type: "ecto",
   age: 20,
 };
 
-export const defaultTodayMeals = [
-  {
-    name: "Almoço",
-    ingredients: [
-      {
-        name: "Chicken",
-        quantity: 100,
-        carb: 0,
-        prot: 30,
-        fat: 5,
-      },
-      {
-        name: "Rice",
-        quantity: 300,
-        carb: 80,
-        prot: 3,
-        fat: 0,
-      },
-    ],
-  },
-  {
-    name: "Lanche",
-    ingredients: [
-      {
-        name: "Suco",
-        quantity: 100,
-        carb: 30,
-        prot: 0,
-        fat: 0,
-      },
-      {
-        name: "Pão",
-        quantity: 150,
-        carb: 20,
-        prot: 5,
-        fat: 2,
-      },
-    ],
-  },
-];
+export const defaultTodayMeals = [];
+
+export const defaultUserData = {
+  weight: 83,
+  height: 189,
+  protkg: 2.04,
+  fatkg: 1,
+  carbkg: 3,
+  sex: "male",
+  objective: "mantain",
+  type: "ecto",
+  age: 20,
+  calories_basal: 1000,
+  calories_goal: 2753,
+  prot_goal: 169,
+  carb_goal: 332,
+  fat_goal: 83,
+};
