@@ -53,8 +53,7 @@ function FoodDaily({ meal }: { meal: ITodayMeal }) {
 
   return (
     <div
-      className={`w-full border max-w-3xl min-h-[156px] mt-3 p-3 relative`}
-      style={{ borderColor: borderColor }}
+      className={`w-full max-w-3xl min-h-[156px] mt-3 p-3 relative shadow-md rounded-md bg-white`}
     >
       <div className="flex justify-between max-w-lg border-b-2 border-black">
         <p className="font-bold text-lg">{meal.name}</p>

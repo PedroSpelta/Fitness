@@ -18,7 +18,6 @@ const Index: NextPage = () => {
         </p>
       </div>
       <DailyDashboard />
-      {/* <Daily /> */}
       {todayMeals.map((meal, i) => {
         return <FoodDaily key={i} meal={meal} />;
       })}

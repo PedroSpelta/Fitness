@@ -3,12 +3,19 @@ import { usePersonalDataContext } from "../context/personalData";
 
 function DietResult() {
   //data provived from context
-  const { weight, protkg, fatkg, basal, calories } = usePersonalDataContext();
+  const { weight, protkg, fatkg, basal, calories, setCarbkg } =
+    usePersonalDataContext();
 
   // macro per day
   const protDay = (protkg * weight) / 100;
   const fatDay = (fatkg * weight) / 100;
   const carboDay = (calories - (protDay * 4 + fatDay * 9)) / 4;
+  console.log(carboDay);
+  
+
+  useEffect(() => {
+    setCarbkg(carboDay / weight);
+  }, [carboDay, weight, setCarbkg]);
 
   return (
     <div className="mx-10 pt-10">

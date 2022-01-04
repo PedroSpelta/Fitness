@@ -1,7 +1,5 @@
 import {
   collection,
-  doc,
-  getDocs,
   onSnapshot,
   query,
   updateDoc,
@@ -16,7 +14,7 @@ import React, {
 } from "react";
 import { defaultBodyData } from "../libs/constants";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
-import { IBodyData, IDataContext } from "../libs/interfaces";
+import { IDataContext } from "../libs/interfaces";
 import { getTodayDateString } from "../utils/date";
 import { db } from "../utils/firebase";
 import { useFoodContext } from "./foodContext";
@@ -36,6 +34,7 @@ export const DataWrapper: FC = ({ children }) => {
   // if (local) return;
   const [protkg, setProtkg] = useState(defaultBodyData.protkg);
   const [fatkg, setFatkg] = useState(defaultBodyData.fatkg);
+  const [carbkg, setCarbkg] = useState(defaultBodyData.carbkg);
   const [age, setAge] = useState(defaultBodyData.age);
   const [height, setHeight] = useState(defaultBodyData.height);
   const [weight, setWeight] = useState(defaultBodyData.weight);
@@ -59,15 +58,12 @@ export const DataWrapper: FC = ({ children }) => {
       const macrosPerdayData = {
         prot: ((protkg * weight) / 100).toFixed(0),
         fat: ((fatkg * weight) / 100).toFixed(0),
-        carb: (
-          (calories -
-            ((protkg * weight * 4) / 100 + (fatkg * weight * 9) / 100)) /
-          4
-        ).toFixed(0),
+        carb: ((carbkg * weight) / 100).toFixed(0),
       };
 
       setProtkg(userData.protkg);
       setFatkg(userData.fatkg);
+      setCarbkg(userData.carbkg);
       setAge(userData.age);
       setHeight(userData.height);
       setWeight(userData.weight);
@@ -106,14 +102,19 @@ export const DataWrapper: FC = ({ children }) => {
 
   const updateUserInfo = async () => {
     const data = {
-      protkg,
-      fatkg,
       age,
+      sex,
+      type,
+      fatkg,
       height,
       weight,
-      sex,
+      protkg,
+      carbkg,
       objective,
-      type,
+      calories_goal: calories,
+      fat_goal: fatkg * weight,
+      prot_goal: protkg * weight,
+      carb_goal: carbkg * weight,
     };
 
     const userDoc = await getUserDocsHelper();
@@ -135,6 +136,8 @@ export const DataWrapper: FC = ({ children }) => {
         calories,
         macrosPerDay,
         basal,
+        carbkg,
+        setCarbkg,
         updateUserInfo,
         setMacrosPerDay,
         setCalories,

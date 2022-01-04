@@ -16,6 +16,7 @@ export interface IDataContext {
   age: number;
   protkg: number;
   fatkg: number;
+  carbkg: number;
   weight: number;
   height: number;
   sex: string;
@@ -30,6 +31,7 @@ export interface IDataContext {
   setType: Dispatch<string>;
   setObjective: Dispatch<string>;
   setAge: Dispatch<number>;
+  setCarbkg: Dispatch<number>;
   setFatkg: Dispatch<number>;
   setWeight: Dispatch<number>;
   setProtkg: Dispatch<number>;

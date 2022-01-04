@@ -3,6 +3,7 @@ export const defaultBodyData = {
   height: 170,
   protkg: 200,
   fatkg: 100,
+  carbkg:300,
   sex: "male",
   objective: "mantain",
   type: "ecto",
