@@ -28,6 +28,7 @@ export interface IDataContext {
   protPerDay: number;
   fatPerDay: number;
   carbPerDay: number;
+  userDates: IUserDataDates;
   setProtPerDay: Dispatch<number>;
   setFatPerDay: Dispatch<number>;
   setCarbPerDay: Dispatch<number>;
@@ -103,4 +104,19 @@ export interface IPersonalData {
   prot_goal: number;
   carb_goal: number;
   fat_goal: number;
+}
+
+export interface IUserDataDate {
+  name: string;
+  ingredients: Array<IIngredient>
+}
+
+export interface IUserDataDates {
+  [key: string]: Array<IUserDataDate>
+}
+
+export interface IUserData {
+  dates: IUserDataDates;
+  id: number;
+  personal_info: IPersonalData; 
 }

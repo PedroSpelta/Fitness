@@ -37,19 +37,28 @@ function DailyDashboard() {
       {/* card de meta do dia */}
       <DailyDashboardCard>
         <p className="text-sm font-semibold ">Metas</p>
-        <p className="text-5xl font-bold mt-2">
+        <p className="text-4xl font-bold mt-1 text-center">
           {caloriesGoal}
           <span className="text-sm font-normal">kcal</span>
         </p>
-        <div className="grid grid-cols-3 text-sm mx-auto text-center mt-6">
-          <div className="col-span-1">
-            <p className="text-sm">C: {carbPerDay}g</p>
+        <div className="grid grid-cols-3 text-sm mx-auto text-center mt-1 font-semibold">
+          <div className="col-span-1 px-3 w-[70px]">
+            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+              <p>C</p>
+              <p>{carbPerDay}g</p>
+            </div>
           </div>
-          <div className="col-span-1">
-            <p className="text-sm">P: {protPerDay}g</p>
+          <div className="col-span-1 px-3 w-[70px]">
+            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+              <p>P</p>
+              <p>{protPerDay}g</p>
+            </div>
           </div>
-          <div className="col-span-1">
-            <p className="text-sm">G: {fatPerDay}g</p>
+          <div className="col-span-1 px-3 w-[70px]">
+            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+              <p>G</p>
+              <p>{fatPerDay}g</p>
+            </div>
           </div>
         </div>
       </DailyDashboardCard>

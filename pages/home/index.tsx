@@ -5,6 +5,7 @@ import Daily from "../../components/Daily";
 import DailyDashboard from "../../components/DailyDashboard";
 import FoodDaily from "../../components/FoodDaily";
 import Header from "../../components/Header";
+import WeeklyDash from "../../components/WeeklyDash";
 import { useFoodContext } from "../../context/foodContext";
 
 const Index: NextPage = () => {
@@ -18,6 +19,7 @@ const Index: NextPage = () => {
         </p>
       </div>
       <DailyDashboard />
+      {/* <WeeklyDash data={[10,20,30]} /> */}
       {todayMeals.map((meal, i) => {
         return <FoodDaily key={i} meal={meal} />;
       })}

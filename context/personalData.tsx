@@ -14,7 +14,7 @@ import React, {
 } from "react";
 import { defaultUserData } from "../libs/constants";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
-import { IDataContext } from "../libs/interfaces";
+import { IDataContext, IUserData } from "../libs/interfaces";
 import { getTodayDateString } from "../utils/date";
 import { db } from "../utils/firebase";
 import { useFoodContext } from "./foodContext";
@@ -31,7 +31,6 @@ const dic: { [char: string]: number } = {
 const DataContext = createContext<IDataContext>(null!);
 
 export const DataWrapper: FC = ({ children }) => {
-
   const [sex, setSex] = useState(defaultUserData.sex);
   const [height, setHeight] = useState(defaultUserData.height);
   const [weight, setWeight] = useState(defaultUserData.weight);
@@ -46,6 +45,18 @@ export const DataWrapper: FC = ({ children }) => {
   const [protPerDay, setProtPerDay] = useState(0);
   const [fatPerDay, setFatPerDay] = useState(0);
   const [carbPerDay, setCarbPerDay] = useState(0);
+  const [userDates, setUserDates] = useState({
+     "01/01/2022": [{
+       ingredients:[{
+        carb: 0,
+        fat: 0,
+        name: "chicken",
+        prot: 30,
+        quantity: 100,
+       }],
+       name:'almoço',
+     }]
+  });
 
   const { setTodayMeals } = useFoodContext();
 
@@ -72,11 +83,12 @@ export const DataWrapper: FC = ({ children }) => {
       const q = query(collection(db, "users"), where("id", "==", 1));
 
       const unsubscribe = onSnapshot(q, (doc) => {
+        setUserDates(doc.docs[0].data().dates);
         setTodayMeals(doc.docs[0].data().dates[dateString] || []);
       });
     };
     getUserData();
-  }, []);
+  }, [setTodayMeals]);
 
   useEffect(() => {
     const basalA: number =
@@ -139,6 +151,7 @@ export const DataWrapper: FC = ({ children }) => {
         protPerDay,
         fatPerDay,
         carbPerDay,
+        userDates,
         setProtPerDay,
         setFatPerDay,
         setCarbPerDay,
