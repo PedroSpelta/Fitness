@@ -1,9 +1,7 @@
 import {
-  addDoc,
   collection,
-  DocumentData,
-  getDoc,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
@@ -27,10 +25,14 @@ export const FoodContextWrapper: FC = ({ children }) => {
   useEffect(() => {
     const getIngredients = async () => {
       const ingredientsCol = collection(db, "ingredients");
-      const ingredientsDocs = (await getDocs(ingredientsCol)).docs;
-      const ingredientsData = ingredientsDocs.map((i) => i.data()) as IIngredientsFirebase;     
-      setIngredients(ingredientsData);
-      
+      // const ingredientsData = ingredientsDocs.map((i) => i.data()) as IIngredientsFirebase;
+      const unsubscribe = onSnapshot(ingredientsCol, (doc) => {
+        const ingredientsData = doc.docs.map((i) => i.data()) as IIngredientsFirebase;
+        setIngredients(ingredientsData)
+        // console.log(doc.docs);
+        
+        // setIngredients(ingredientsData);
+      })
       // setIngredients(ingredientsData)
     };
 
@@ -42,6 +44,8 @@ export const FoodContextWrapper: FC = ({ children }) => {
         where("id", "==", userId)
       );
       const userDocs = (await getDocs(userQuery)).docs;
+
+
 
       const userDataColl = collection(db, "users", userDocs[0].id, "data");
       const userDataDocs = (await getDocs(userDataColl)).docs;
