@@ -16,13 +16,13 @@ function AddMeal() {
   const [meal, setMeal] = useState(defaultMeal);
   return (
     <div
-      className={`w-[80%] md:w-full max-w-3xl min-h-[156px] mt-3 p-3 relative bg-white shadow-lg rounded-md`}
+      className={`w-[80%] md:w-full max-w-3xl min-h-[156px] mt-3 py-3 pr-6 pl-3 md:px-3 relative bg-white shadow-lg rounded-md`}
       style={{ borderColor: borderColor }}
     >
-      <div className="flex justify-between max-w-lg border-b-2 border-black">
+      <div className="flex justify-between max-w-lg ">
         <div className="w-full">
           <input
-            className="font-bold text-sm p-1 boxShadow w-[90%] mb-1 rounded-md"
+            className="font-bold text-sm p-1 w-[90%] mb-1 rounded-md"
             value={meal.name}
             onChange={(e) =>
               setMeal((state) => ({ ...state, name: e.target.value }))
@@ -31,17 +31,12 @@ function AddMeal() {
             placeholder="Título"
           />
         </div>
-        <div className="text-center font-bold h-8 leading-8 hidden md:flex">
-          <p className="w-12 h-full">Carb.</p>
-          <p className="w-12 h-full ">Prot.</p>
-          <p className="w-12 h-full ">Gord.</p>
+        <div className="text-center font-bold h-8 leading-8 flex w-fit text-sm">
+          <p className="w-12 h-full hidden md:inline">Carb.</p>
+          <p className="w-12 h-full hidden md:inline">Prot.</p>
+          <p className="w-12 h-full hidden md:inline">Gord.</p>
+          <p className="w-12 h-full ">kcal</p>
           <p className="w-14 h-full  ml-5">Peso</p>
-        </div>
-        <div className="text-center font-bold h-8 leading-8 flex md:hidden text-sm">
-          <p className="w-7 h-full">C.</p>
-          <p className="w-7 h-full ">P.</p>
-          <p className="w-7 h-full ">G.</p>
-          <p className="w-8 h-full  ml-5">P</p>
         </div>
       </div>
       {meal.ingredients.map((ingredient, i) => (

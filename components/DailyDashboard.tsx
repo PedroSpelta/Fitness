@@ -43,19 +43,19 @@ function DailyDashboard() {
         </p>
         <div className="grid grid-cols-3 text-sm mx-auto text-center mt-1 font-semibold">
           <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
               <p>C</p>
               <p>{carbPerDay}g</p>
             </div>
           </div>
           <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
               <p>P</p>
               <p>{protPerDay}g</p>
             </div>
           </div>
           <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-gray-100 shadow-md rounded-3xl text-black py-2 px-2">
+            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
               <p>G</p>
               <p>{fatPerDay}g</p>
             </div>

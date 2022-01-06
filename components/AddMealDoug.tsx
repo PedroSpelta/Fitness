@@ -7,6 +7,7 @@ function AddMealDoug({meal} : {meal:ITodayMeal}) {
     // for a semi circle
     // rotation: -90,
     // circumference: 180,
+    cutout:0,
     responsive: true,
     plugins: {
       legend: {
@@ -25,16 +26,11 @@ function AddMealDoug({meal} : {meal:ITodayMeal}) {
           meal.ingredients.reduce((prev, cur) => prev + cur.fat, 0),
         ],
         backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
         ],
-        borderWidth: 1,
+        borderWidth: 2,
       },
     ],
   };

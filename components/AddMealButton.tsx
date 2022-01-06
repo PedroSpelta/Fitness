@@ -20,7 +20,7 @@ function AddMealButton({ meal }: { meal: ITodayMeal }) {
   };
   return (
     <div
-      className="addMealBtn border border-black rounded-md p-0.5 my-2 text-sm bg-white w-fit"
+      className="addMealBtn rounded-md my-2 text-sm bg-blue-500 text-white p-1 w-fit cursor-pointer"
       onClick={clickHandler}
     >
       Adicionar refeição

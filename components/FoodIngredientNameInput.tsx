@@ -56,6 +56,7 @@ function FoodIngredientNameInput({
         selectedIngredient.portion_size
       ).toFixed(0)
     ) || 0;
+  const cal = (carb + prot) * 4 + fat * 9;
 
   const inputHandler = (e: React.FormEvent<HTMLInputElement>) => {
     //type of textarea, so we can get the .value on ts
@@ -90,11 +91,11 @@ function FoodIngredientNameInput({
 
   return (
     <div>
-      <div className="flex border-t-2 justify-between max-w-lg items-center">
+      <div className="flex border-t-2 justify-between max-w-lg items-center relative bg-gray-200 font-semibol">
         <div className="w-full">
           <input
             type="text"
-            className=" pl-2 p-1 w-[90%] boxShadow rounded-md text-sm font-semibold"
+            className=" pl-2 p-1 w-[90%] rounded-md text-sm font-semibold bg-gray-200"
             list="ingredients-list"
             placeholder="Ingrediente"
             onInput={(e) => inputHandler(e)}
@@ -106,26 +107,29 @@ function FoodIngredientNameInput({
           ))}
         </datalist>
         <div className="flex text-center">
-          <p className="w-12 bg-gray-300">{carb} g</p>
-          <p className="w-12">{prot} g</p>
-          <p className="w-12 bg-gray-300">{fat} g</p>
+          <p className="w-12 hidden md:inline">{carb} g</p>
+          <p className="w-12 hidden md:inline">{prot} g</p>
+          <p className="w-12 hidden md:inline">{fat} g</p>
+          <p className="w-12">{cal}</p>
           <div className="relative">
             <input
               type="number"
-              className="ml-5 w-14 rounded-md pl-2 p-1 text-sm boxShadow font-semibold"
+              className="ml-5 w-14 rounded-md pl-2 p-1 text-sm font-semibold bg-gray-200"
               value={Number(weight).toString()}
               onChange={(e) => setWeight(Number(e.target.value))}
             />
             <p className="right-2 top-0.5 absolute z-10">g</p>
           </div>
         </div>
+        <button
+          onClick={addMealHandler}
+          className="absolute -right-[23px] md:-right-20 addMealBtn border rounded-md px-1 py-0 md:py-1 my-2 text-sm text-white bg-blue-500"
+        >
+          <p className="hidden md:inline">Adicionar</p>
+          <p className=" md:hidden">+</p>
+
+        </button>
       </div>
-      <button
-        onClick={addMealHandler}
-        className="addMealBtn border border-black rounded-md p-0.5 my-2 text-sm bg-white"
-      >
-        Adicionar ingrediente
-      </button>
     </div>
   );
 }
