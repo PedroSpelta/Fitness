@@ -45,3 +45,16 @@ input[type="number"]::-webkit-outer-spin-button {
 .boxShadow {
   box-shadow: inset 1px 1px 2px 1px rgb(0, 0, 0, 1);
 }
+
+.slide-div {
+  transition: width 200ms ease;
+  -moz-transition: width 200ms ease;
+  -ms-transition: width 200ms ease;
+  -o-transition: width 200ms ease;
+  -webkit-transition: width 200ms ease;
+  word-break: break-all;
+}
+
+.slide-wrapper:hover {
+  width: 200px;
+}

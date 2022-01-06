@@ -89,6 +89,9 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/pages
   pages: {
     // signIn: '/auth/signin',  // Displays signin buttons
+    // signIn:'/login',
+    // newUser:'/login',
+    // signOut:'/login',
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -100,7 +103,7 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
     // async signIn({ user, account, profile, email, credentials }) { return true },
-    // async redirect({ url, baseUrl }) { return baseUrl },
+    async redirect({ url, baseUrl }) { return '/home' },
     // async session({ session, token, user }) { return session },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }
   },
