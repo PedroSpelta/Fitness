@@ -123,7 +123,7 @@ function FoodIngredientNameInput({
         </div>
         <button
           onClick={addMealHandler}
-          className="absolute -right-[23px] md:-right-20 addMealBtn border rounded-md px-1 py-0 md:py-1 my-2 text-sm text-white bg-blue-500"
+          className="absolute -right-[23px] md:-right-20 addMealBtn md:rounded-md px-1 py-0 md:py-1 my-2 text-sm text-white bg-blue-500 h-8 w-6 border-b-2 border-black md:border-none md:w-fit"
         >
           <p className="hidden md:inline">Adicionar</p>
           <p className=" md:hidden">+</p>

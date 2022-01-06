@@ -12,7 +12,7 @@ const defaultMeal: ITodayMeal = {
   ingredients: [],
 };
 
-function AddMeal() {
+function AddMeal({ closeHandler }: { closeHandler: Function }) {
   const [meal, setMeal] = useState(defaultMeal);
   return (
     <div
@@ -46,6 +46,12 @@ function AddMeal() {
       <FoodTotal ingredients={meal.ingredients} />
       <AddMealButton meal={meal} />
       <AddMealDoug meal={meal} />
+      <div
+        className="absolute right-0.5 top-2 md:right-2 bg-red-500 rounded-md w-5 h-5 flex justify-center items-center font-semibold cursor-pointer"
+        onClick={() => closeHandler()}
+      >
+        x
+      </div>
     </div>
   );
 }
