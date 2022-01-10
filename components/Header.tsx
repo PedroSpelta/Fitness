@@ -57,22 +57,13 @@ function Header() {
               Usuário
             </p>
           </Link>
-          <Link href={"/data"} passHref>
-            <p
-              className={` p-3 cursor-pointer ${
-                pathname === "/data" && "bg-blue-900"
-              }`}
-            >
-              Data
-            </p>
-          </Link>
           <Link href={"/ingredient/add"} passHref>
             <p
               className={` p-3 cursor-pointer ${
                 pathname === "/ingredient/add" && "bg-blue-900"
               }`}
             >
-              Igredient
+              Igredientes
             </p>
           </Link>
         </div>

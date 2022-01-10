@@ -35,22 +35,6 @@ export const FoodContextWrapper: FC = ({ children }) => {
       })
       // setIngredients(ingredientsData)
     };
-
-    const testUser = async () => {
-      const userId = 1;
-
-      const userQuery = query(
-        collection(db, "users"),
-        where("id", "==", userId)
-      );
-      const userDocs = (await getDocs(userQuery)).docs;
-
-
-
-      const userDataColl = collection(db, "users", userDocs[0].id, "data");
-      const userDataDocs = (await getDocs(userDataColl)).docs;
-      const userData = userDataDocs.map((d) => d.data());
-    };
     getIngredients();
     // getData();
   }, []);

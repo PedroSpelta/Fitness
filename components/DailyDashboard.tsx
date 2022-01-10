@@ -32,48 +32,105 @@ function DailyDashboard() {
     setConsumedMacros({ carb, prot, fat, calories });
   }, [todayMeals]);
 
+  const consumedFatP = ((consumedMacros.fat * 100) / fatPerDay).toFixed(1);
+  const consumedProtP = ((consumedMacros.prot * 100) / protPerDay).toFixed(1);
+  const consumedCarbP = ((consumedMacros.carb * 100) / carbPerDay).toFixed(1);
+
   return (
     <div className="w-full max-w-3xl grid md:grid-cols-3  mt-5 gap-5">
       {/* card de meta do dia */}
-      <DailyDashboardCard>
-        <p className="text-sm font-semibold ">Metas</p>
-        <p className="text-4xl font-bold mt-1 text-center">
-          {caloriesGoal}
-          <span className="text-sm font-normal">kcal</span>
-        </p>
-        <div className="grid grid-cols-3 text-sm mx-auto text-center mt-1 font-semibold">
-          <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
-              <p>C</p>
-              <p>{carbPerDay}g</p>
+      <DailyDashboardCard cols={2}>
+        <div className="flex w-full h-full justify-between">
+          <div className="w-[160px]">
+            <p className="text-sm font-semibold ">Metas</p>
+            <p className="text-4xl font-bold mt-1">
+              {caloriesGoal}
+              <span className="text-sm font-normal">kcal</span>
+            </p>
+            <div className="font-semibold">
+              <p className="text-sm">
+                Gorduras <span className="text-[#FFC534]">{fatPerDay}g</span>
+              </p>
+              <p className=" text-sm">
+                Proteinas <span className="text-[#ff6384]">{protPerDay}g</span>
+              </p>
+              <p className=" text-sm">
+                Carboidratos{" "}
+                <span className="text-[#36a2eb]">{carbPerDay}g</span>
+              </p>
             </div>
           </div>
-          <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
-              <p>P</p>
-              <p>{protPerDay}g</p>
+          <div className=" h-full flex items-end gap-2 justify-end text-sm font-semibold ">
+            <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+              <p className="text-center">{`${consumedFatP}%`}</p>
+              <div
+                className="bg-[#FFC534] w-5 md:w-10"
+                style={{ height: `${consumedFatP}%` }}
+              ></div>
             </div>
-          </div>
-          <div className="col-span-1 px-3 w-[70px]">
-            <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
-              <p>G</p>
-              <p>{fatPerDay}g</p>
+            <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+              <p className="text-center">{`${consumedProtP}%`}</p>
+              <div
+                className="bg-[#ff6384] w-5 md:w-10"
+                style={{ height: `${consumedProtP}%` }}
+              ></div>
             </div>
+            <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+              <p className="text-center">{`${consumedCarbP}%`}</p>
+              <div
+                className="bg-[#36a2eb] w-5 md:w-10"
+                style={{ height: `${consumedCarbP}%` }}
+              ></div>
+            </div>
+            {/* <div
+              className="bg-[#FF4069] w-5 md:w-10 h-10 relative"
+              style={{ height: `${(consumedMacros.prot * 100) / protPerDay}%` }}
+            >
+              <p className="absolute top-0 -translate-y-full ">
+                {`${consumedProtP}%`}
+              </p>
+            </div>
+            <div
+              className="bg-[#059BFF] w-5 md:w-10 h-10 relative"
+              style={{ height: `${(consumedMacros.carb * 100) / carbPerDay}%` }}
+            >
+              <p className="absolute top-0 -translate-y-full ">
+                {`${consumedCarbP}%`}
+              </p>
+            </div> */}
           </div>
+          {/* <DailyDashboarMacro
+            data={[
+              consumedMacros.carb,
+              consumedMacros.prot,
+              consumedMacros.fat,
+            ]}
+          /> */}
         </div>
-      </DailyDashboardCard>
-
-      {/* card de macros do dia */}
-      <DailyDashboardCard>
-        <p className="text-sm font-semibold ">Macros</p>
-
-        <DailyDashboarMacro
-          data={[consumedMacros.carb, consumedMacros.prot, consumedMacros.fat]}
-        />
+        {/* <div className="grid grid-cols-3 text-sm mx-auto text-center mt-1 font-semibold">
+            <div className="col-span-1 px-3 w-[70px]">
+              <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
+                <p>C</p>
+                <p>{carbPerDay}g</p>
+              </div>
+            </div>
+            <div className="col-span-1 px-3 w-[70px]">
+              <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
+                <p>P</p>
+                <p>{protPerDay}g</p>
+              </div>
+            </div>
+            <div className="col-span-1 px-3 w-[70px]">
+              <div className="text-sm bg-blue-500 shadow-md rounded-3xl text-white py-2 px-2">
+                <p>G</p>
+                <p>{fatPerDay}g</p>
+              </div>
+            </div>
+          </div> */}
       </DailyDashboardCard>
 
       {/* card de calorias do dia */}
-      <DailyDashboardCard>
+      <DailyDashboardCard cols={1}>
         <p className="text-sm font-semibold ">Calorias</p>
         <div className="relative mt-4">
           <DailyDashboardCalories

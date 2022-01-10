@@ -66,13 +66,11 @@ function DailyDashboarMacro({ data }: { data: Array<number> }) {
     ],
   };
   return (
-    <div className="w-[90%] mx-auto h-[80%] mt-2">
+    <div className="w-auto mx-auto h-[80%] mt-2">
       <Bar
         data={barData}
         options={barOptions}
         className="-m-3"
-        height={10}
-        width={10}
       />
 
     </div>

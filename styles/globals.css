@@ -58,3 +58,19 @@ input[type="number"]::-webkit-outer-spin-button {
 .slide-wrapper:hover {
   width: 200px;
 }
+
+@media (max-width: 768px) {
+  .gridColumn1 {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 768px) {
+  .gridColumn1 {
+    grid-column: span 1;
+  }
+}
+
+.gridColumn2 {
+  grid-column: span 2;
+}

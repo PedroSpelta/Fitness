@@ -5,6 +5,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { useSession } from "next-auth/react";
 import React, {
   createContext,
   useContext,
@@ -31,6 +32,7 @@ const dic: { [char: string]: number } = {
 const DataContext = createContext<IDataContext>(null!);
 
 export const DataWrapper: FC = ({ children }) => {
+  const {data} = useSession();
   const [sex, setSex] = useState(defaultUserData.sex);
   const [height, setHeight] = useState(defaultUserData.height);
   const [weight, setWeight] = useState(defaultUserData.weight);
@@ -79,16 +81,21 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
-
-      const q = query(collection(db, "users"), where("id", "==", 1));
+      
+      if ( !data ) return
+      console.log('data',data);
+      
+      const q = query(collection(db, "users"), where("email", "==", data.user?.email));
 
       const unsubscribe = onSnapshot(q, (doc) => {
+        console.log('doc',doc.docs);
+                
         setUserDates(doc.docs[0].data().dates);
         setTodayMeals(doc.docs[0].data().dates[dateString] || []);
       });
     };
     getUserData();
-  }, [setTodayMeals]);
+  }, [setTodayMeals,data]);
 
   useEffect(() => {
     const basalA: number =

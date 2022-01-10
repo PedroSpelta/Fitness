@@ -47,7 +47,7 @@ function FoodDaily({ meal }: { meal: ITodayMeal }) {
 
   return (
     <div
-      className={`w-[80%] md:w-full max-w-3xl min-h-[156px] mt-3 p-3 relative h-full shadow-md rounded-md bg-white flex flex-col `}
+      className={`w-[80%] md:w-full max-w-3xl min-h-[156px] mt-3 p-3 relative shadow-md rounded-md bg-white flex flex-col `}
     >
       <div className="flex justify-between max-w-lg ">
         <p className="font-bold text-lg truncate">{meal.name}</p>
