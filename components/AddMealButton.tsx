@@ -14,8 +14,6 @@ function AddMealButton({ meal }: { meal: ITodayMeal }) {
       ...userData,
       dates: { ...userData.dates, [today]: [...todayPrevMeals, meal] },
     };
-    console.log(todayData);
-
     updateDoc(userDocs.ref, todayData);
   };
   return (

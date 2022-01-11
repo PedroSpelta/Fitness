@@ -60,7 +60,7 @@ function DailyDashboard() {
               </p>
             </div>
           </div>
-          <div className=" h-full flex items-end gap-2 justify-end text-sm font-semibold ">
+          <div className=" h-full flex items-end gap-2 justify-end text-sm font-semibold mx-auto ">
             <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
               <p className="text-center">{`${consumedFatP}%`}</p>
               <div

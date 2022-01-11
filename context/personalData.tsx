@@ -88,7 +88,7 @@ export const DataWrapper: FC = ({ children }) => {
       const q = query(collection(db, "users"), where("email", "==", data.user?.email));
 
       const unsubscribe = onSnapshot(q, (doc) => {
-        console.log('doc',doc.docs);
+        console.log('doc',doc.docs[0].data());
                 
         setUserDates(doc.docs[0].data().dates);
         setTodayMeals(doc.docs[0].data().dates[dateString] || []);

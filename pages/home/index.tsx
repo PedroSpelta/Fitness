@@ -20,7 +20,7 @@ const Index: NextPage = () => {
       <DailyDashboard />
       {/* <WeeklyDash data={[10,20,30]} /> */}
       {todayMeals.map((meal, i) => {
-        return <FoodDaily key={i} meal={meal} />;
+        return <FoodDaily key={i} meal={meal} position={i} />;
       })}
       {isAddVisible ? (
         <AddMeal

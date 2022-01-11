@@ -4,6 +4,10 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { ITodayMeal } from "../libs/interfaces";
 import FoodTotal from "./FoodTotal";
+import { AiOutlineClose } from "react-icons/ai";
+import { getUserDocsHelper } from "../libs/firebaseHelper";
+import { getTodayDateString } from "../utils/date";
+import { updateDoc } from "firebase/firestore";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,7 +24,7 @@ const dougOptions = {
   },
 };
 
-function FoodDaily({ meal }: { meal: ITodayMeal }) {
+function FoodDaily({ meal, position }: { meal: ITodayMeal, position:number }) {
   const quantity = meal.ingredients.reduce(
     (prev, cur) => prev + cur.quantity,
     0
@@ -45,6 +49,21 @@ function FoodDaily({ meal }: { meal: ITodayMeal }) {
     ],
   };
 
+  const removeMeal = async () => {
+    const userDocs = await getUserDocsHelper();
+    const userData = userDocs.data();
+    const today = getTodayDateString();
+    const todayPrevMeals = userData.dates[today];
+    console.log(todayPrevMeals.splice(position,1));
+    console.log(todayPrevMeals);
+        
+    const todayData = {
+      ...userData,
+      dates: { ...userData.dates, [today]: [...todayPrevMeals] },
+    };
+    updateDoc(userDocs.ref, todayData);
+  }
+
   return (
     <div
       className={`w-[80%] md:w-full max-w-3xl min-h-[156px] mt-3 p-3 relative shadow-md rounded-md bg-white flex flex-col `}
@@ -68,6 +87,12 @@ function FoodDaily({ meal }: { meal: ITodayMeal }) {
 
       <div className="h-28 w-28 absolute right-5 invisible md:visible top-[50%] -translate-y-[50%]">
         <Doughnut data={dougData} options={dougOptions} />
+      </div>
+      <div
+        className="h-5 w-5 flex justify-center items-center rounded-md absolute right-2 top-2 hover:text-red-600"
+        onClick={() => removeMeal()}
+      >
+        <AiOutlineClose />
       </div>
     </div>
   );
