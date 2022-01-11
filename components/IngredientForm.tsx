@@ -24,7 +24,7 @@ function IngredientForm() {
   };
 
   return (
-    <div className="border p-10 max-w-2xl w-[80%] mt-10">
+    <div className="p-10 max-w-2xl w-[80%] mt-10 bg-white rounded-md shadow-md">
       <p className="text-center text-2xl font-bold mb-10">Ingrediente</p>
       <div className="w-full border-b border-gray-400 h-2 mb-5"></div>
       <form className="flex flex-wrap justify-center gap-5">

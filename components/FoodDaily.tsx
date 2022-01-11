@@ -54,8 +54,6 @@ function FoodDaily({ meal, position }: { meal: ITodayMeal, position:number }) {
     const userData = userDocs.data();
     const today = getTodayDateString();
     const todayPrevMeals = userData.dates[today];
-    console.log(todayPrevMeals.splice(position,1));
-    console.log(todayPrevMeals);
         
     const todayData = {
       ...userData,

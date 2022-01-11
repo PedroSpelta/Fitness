@@ -7,14 +7,14 @@ import Header from "../../components/Header";
 
 const Index: NextPage = () => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center bg-[#fafafa]">
       <Header />
       <div className="bg-blue-900 w-screen flex justify-center">
         <p className="text-white text-lg font-semibold py-3 max-w-3xl w-full">
           Preencha com seus dados abaixo
         </p>
       </div>
-      <div className="max-w-3xl w-full my-10 border">
+      <div className="max-w-3xl w-full my-10 shadow-md rounded-md bg-white">
         <p className="text-2xl text-center font-bold mt-10">
           Recomendações de Dieta
         </p>

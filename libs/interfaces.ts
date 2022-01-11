@@ -67,10 +67,16 @@ export interface IIngredientMacroFirebase {
   sodium: number;
 }
 
-export interface IIngredientFirebase {
+interface IIngredientsFirebaseKeys {
+  [key:string] :any;
+}
+
+export interface IIngredientFirebase extends IIngredientsFirebaseKeys {
   macros: IIngredientMacroFirebase;
   name: string;
   portion_size: number;
+  upVoted: Array<string>;
+  downVoted: Array<string>;
 }
 
 export interface IIngredientsFirebase extends Array<IIngredientFirebase> {}
@@ -108,15 +114,19 @@ export interface IPersonalData {
 
 export interface IUserDataDate {
   name: string;
-  ingredients: Array<IIngredient>
+  ingredients: Array<IIngredient>;
 }
 
 export interface IUserDataDates {
-  [key: string]: Array<IUserDataDate>
+  [key: string]: Array<IUserDataDate>;
 }
 
 export interface IUserData {
   dates: IUserDataDates;
   id: number;
-  personal_info: IPersonalData; 
+  personal_info: IPersonalData;
+}
+
+export interface INewVotes {
+  [key: string ] : Array<string>;
 }
