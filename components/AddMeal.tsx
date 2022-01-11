@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { ITodayMeal } from "../libs/interfaces";
 import { borderColor } from "../styles/constants";
 import AddMealButton from "./AddMealButton";
@@ -47,10 +48,10 @@ function AddMeal({ closeHandler }: { closeHandler: Function }) {
       <AddMealButton meal={meal} />
       <AddMealDoug meal={meal} />
       <div
-        className="absolute right-0.5 top-2 md:right-2 bg-red-500 rounded-md w-5 h-5 flex justify-center items-center font-semibold cursor-pointer"
+        className="absolute right-0.5 top-2 md:right-2 hover:text-red-500 rounded-md w-5 h-5 flex justify-center items-center font-semibold cursor-pointer"
         onClick={() => closeHandler()}
       >
-        x
+        <AiOutlineClose />
       </div>
     </div>
   );
