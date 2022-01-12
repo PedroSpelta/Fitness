@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 
 const Index: NextPage = () => {
   return (
-    <div className="flex flex-col items-center bg-[#fafafa]">
+    <div className="flex flex-col items-center bg-[#fafafa] min-h-screen">
       <Header />
       <div className="bg-blue-900 w-screen flex justify-center">
         <p className="text-white text-lg font-semibold py-3 max-w-3xl w-full ml-3 md:ml-0">
