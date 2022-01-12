@@ -6,12 +6,13 @@ export async function middleware(req) {
   const { pathname} = req.nextUrl;
   
   // permite req se é for uma req para o next-auth ou o token for existente
-
+  
   if (pathname.includes("/api/auth") || token) {
     return NextResponse.next();
   }
-
+  
   if (!token && pathname !=="/login") {
+    console.log('token',token);
     return NextResponse.redirect("/login")
   }
 }
