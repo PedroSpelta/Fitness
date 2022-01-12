@@ -11,6 +11,8 @@ interface IIngredient {
 }
 
 const defaultIngredient: IIngredientFirebase = {
+  upVoted:[],
+  downVoted:[],
   macros: {
     fiber: 0,
     carb: 0,

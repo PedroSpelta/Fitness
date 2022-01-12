@@ -5,7 +5,7 @@ import DailyButton from "./DailyButton";
 import MacroCircle from "./MacroCircle";
 
 function Daily() {
-  const { calories, macrosPerDay } = usePersonalDataContext();
+  const { caloriesGoal } = usePersonalDataContext();
   const { todayMeals } = useFoodContext();
 
   const [consumedMacros, setConsumedMacros] = useState({
@@ -31,9 +31,10 @@ function Daily() {
     setConsumedMacros({ carb, prot, fat, calories });
   }, [todayMeals]);
 
-  const dailyCalWidth = `${((consumedMacros.calories / calories) * 100).toFixed(
-    0
-  )}%`;
+  const dailyCalWidth = `${(
+    (consumedMacros.calories / caloriesGoal) *
+    100
+  ).toFixed(0)}%`;
 
   return (
     <div className="border border-gray-400 max-w-3xl w-full p-5 mt-8 grid grid-cols-4">
@@ -42,13 +43,13 @@ function Daily() {
           <div>
             <p className="text-sm text-gray-400">Restam:</p>
             <span className="text-4xl font-semibold">
-              {calories - consumedMacros.calories}
+              {caloriesGoal - consumedMacros.calories}
             </span>
             <span className="text-xs text-gray-500">kcal</span>
           </div>
           <div>
             <p className="text-sm text-gray-400">Meta:</p>
-            <span className="text-4xl font-semibold">{calories}</span>
+            <span className="text-4xl font-semibold">{caloriesGoal}</span>
             <span className="text-xs text-gray-500">kcal</span>
           </div>
         </div>
