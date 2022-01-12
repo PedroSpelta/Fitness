@@ -71,10 +71,26 @@ export const DataWrapper: FC = ({ children }) => {
 
   useEffect(() => {
     const getUserData = async () => {
+      if (!data) return;
       const userDoc = await getUserDocsHelper(data?.user?.email as string);
-      if(!userDoc) return;
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", data.user?.email)
+      );
+
+      if ((await getDocs(q)).docs.length === 0) {
+        const usersColl = collection(db, "users");
+        await addDoc(usersColl, {
+          email: data.user?.email,
+          dates: {},
+          personal_info: {},
+        });
+      }
+
+      if (!userDoc) return;
+      
       const userData = userDoc.data().personal_info;
-      if(!userData.prot_goal) return
+      if (!userData.prot_goal) return;
       const dateString = getTodayDateString();
 
       setProtPerDay(Number(userData.prot_goal.toFixed(0)));
@@ -90,23 +106,6 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
-
-      if (!data) return;
-
-      const q = query(
-        collection(db, "users"),
-        where("email", "==", data.user?.email)
-      );
-      console.log((await getDocs(q)).docs);
-
-      if ((await getDocs(q)).docs.length === 0) {
-        const usersColl = collection(db, "users");
-        await addDoc(usersColl, {
-          email: data.user?.email,
-          dates: {},
-          personal_info: {},
-        });
-      }
 
       const unsubscribe = onSnapshot(q, (doc) => {
         setUserDates(doc.docs[0].data().dates);
