@@ -1,22 +1,43 @@
 import type { NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Head from "next/head";
-import Image from "next/image";
-import { useEffect } from "react";
-import styles from "../styles/Home.module.css";
+import React, { useState } from "react";
+import AddMeal from "../components/AddMeal";
+import DailyDashboard from "../components/DailyDashboard";
+import FoodDaily from "../components/FoodDaily";
+import Header from "../components/Header";
+import { useFoodContext } from "../context/foodContext";
 
-const Home: NextPage = () => {
-  const { data } = useSession();
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+const Index: NextPage = () => {
+  const { todayMeals } = useFoodContext();
+  const [isAddVisible, setIsAddVisible] = useState(false);
   return (
-    <div>
-      <div className="text-green-500 text-8xl">hello world</div>
-      <button onClick={() => signIn()}>sign</button>
-      <button onClick={() => signOut()}>sign out</button>
+    <div className="flex flex-col items-center bg-[#fafafa] min-h-screen">
+      <Header />
+      <div className="bg-blue-900 w-screen flex justify-center">
+        <p className="text-white text-lg font-semibold py-3 max-w-3xl w-full ml-3 md:ml-0">
+          Seu diário
+        </p>
+      </div>
+      <DailyDashboard />
+      {/* <WeeklyDash data={[10,20,30]} /> */}
+      {todayMeals.map((meal, i) => {
+        return <FoodDaily key={i} meal={meal} position={i} />;
+      })}
+      {isAddVisible ? (
+        <AddMeal
+          closeHandler={() => {
+            setIsAddVisible(false);
+          }}
+        />
+      ) : (
+        <button
+          onClick={() => setIsAddVisible(true)}
+          className="bg-blue-500 text-white rounded-md p-1 mt-2"
+        >
+          Adicionar refeição
+        </button>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default Index;
