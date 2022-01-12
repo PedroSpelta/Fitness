@@ -23,7 +23,7 @@ function DietResult() {
       <p className="text-xl font-semibold pb-3">Resultado</p>
 
       {/* Base metabolism*/}
-      <p className="pt-3">Metabolismo caloriesBasal</p>
+      <p className="pt-3">Metabolismo</p>
       <div className="p-[6px] text-sm bg-gray-200 border rounded-md w-40">
         {caloriesBasal} kcal
       </div>
