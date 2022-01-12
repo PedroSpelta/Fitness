@@ -10,7 +10,7 @@ import MacroDoug from "./MacroDoug";
 import { useSession } from "next-auth/react";
 
 function FoodDaily({ meal, position }: { meal: ITodayMeal; position: number }) {
-  const {data: sessionData} = useSession();
+  const { data: sessionData } = useSession();
   const data = [
     meal.ingredients.reduce((prev, cur) => prev + cur.prot, 0),
     meal.ingredients.reduce((prev, cur) => prev + cur.carb, 0),
@@ -18,15 +18,22 @@ function FoodDaily({ meal, position }: { meal: ITodayMeal; position: number }) {
   ];
 
   const removeMeal = async () => {
-    const userDocs = await getUserDocsHelper(sessionData?.user?.email as string);
-    if(!userDocs) return
+    const userDocs = await getUserDocsHelper(
+      sessionData?.user?.email as string
+    );
+    console.log(meal);
+
+    if (!userDocs) return;
     const userData = userDocs.data();
     const today = getTodayDateString();
-    const todayPrevMeals = userData.dates[today];
-
+    const todayPrevMeals = userData.dates[today] as Array<ITodayMeal>;
+    const todayFilteredMeals = todayPrevMeals.filter(
+      (_,i) => i!==position
+    );
+    
     const todayData = {
       ...userData,
-      dates: { ...userData.dates, [today]: [...todayPrevMeals] },
+      dates: { ...userData.dates, [today]: [...todayFilteredMeals] },
     };
     updateDoc(userDocs.ref, todayData);
   };
@@ -53,7 +60,7 @@ function FoodDaily({ meal, position }: { meal: ITodayMeal; position: number }) {
       <FoodTotal ingredients={meal.ingredients} />
 
       <MacroDoug data={data} />
-      
+
       <div
         className="h-5 w-5 flex justify-center items-center rounded-md absolute right-2 top-2 hover:text-red-600"
         onClick={() => removeMeal()}
