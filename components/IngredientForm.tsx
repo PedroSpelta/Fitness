@@ -18,6 +18,8 @@ function IngredientForm() {
     addDoc(ingColl, {
       name,
       macros: { carb, fat, fiber, prot, sodium },
+      upVoted: [],
+      downVoted: [],
       portion_size: portion,
     });
     console.log("teste");

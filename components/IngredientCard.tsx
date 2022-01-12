@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   getDocs,
   query,
   updateDoc,
@@ -8,17 +9,21 @@ import {
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import {
-  IIngredientFirebase,
-  INewVotes,
-} from "../libs/interfaces";
+import { IIngredientFirebase, INewVotes } from "../libs/interfaces";
 import { db } from "../utils/firebase";
+import IngredientCardFacts from "./IngredientCardFacts";
+import MacroDoug from "./MacroDoug";
 
 function IngredientCard({ ingredient }: { ingredient: IIngredientFirebase }) {
   const { data } = useSession();
   const [upVoted, setUpVoted] = useState(false);
   const [downVoted, setDownVoted] = useState(false);
-  console.log(ingredient.upVoted.length - ingredient.downVoted.length);
+  const macroData = [
+    ingredient.macros.prot,
+    ingredient.macros.carb,
+    ingredient.macros.fat,
+  ];
+  const totalVotes = ingredient.upVoted.length - ingredient.downVoted.length;
 
   useEffect(() => {
     if (!ingredient) return;
@@ -32,7 +37,6 @@ function IngredientCard({ ingredient }: { ingredient: IIngredientFirebase }) {
     }
     setUpVoted(false);
     setDownVoted(false);
-
   }, [ingredient]);
 
   const filterVote = (votes: Array<string>) => {
@@ -48,11 +52,12 @@ function IngredientCard({ ingredient }: { ingredient: IIngredientFirebase }) {
     const newVotes = {
       upVoted: updatedEmails,
     };
-    console.log(updatedEmails);
     updateIngredients(newVotes);
   };
 
   const downVote = () => {
+    console.log(totalVotes);
+    if (totalVotes < -3) removeIngredient();
     const newEmail = data?.user?.email;
     if (!newEmail) return;
     const updatedEmails = downVoted
@@ -62,6 +67,16 @@ function IngredientCard({ ingredient }: { ingredient: IIngredientFirebase }) {
       downVoted: updatedEmails,
     };
     updateIngredients(newVotes);
+  };
+
+  const removeIngredient = async () => {
+    const ingredientRef = await collection(db, "ingredients");
+    const ingredientQuery = query(
+      ingredientRef,
+      where("name", "==", ingredient.name)
+    );
+    const ingredientDocs = (await getDocs(ingredientQuery)).docs[0];
+    deleteDoc(ingredientDocs.ref);
   };
 
   const updateIngredients = async (newVotes: INewVotes) => {
@@ -77,29 +92,41 @@ function IngredientCard({ ingredient }: { ingredient: IIngredientFirebase }) {
   };
 
   return (
-    <div className="h-20 w-full max-w-3xl rounded-md shadow-md bg-white leading-3 flex items-center">
-      <div className="flex flex-col ml-2 items-center">
+    <div className="relative h-20 md:h-36 max-w-xl w-[90%] rounded-md shadow-md bg-white leading-3 flex items-center">
+      <div className="flex flex-col items-center">
         <div
-          className={`${upVoted && "upVoted"} text-gray-400 cursor-pointer pt-3 px-3`}
+          className={`${
+            upVoted && "upVoted"
+          } text-gray-400 cursor-pointer pt-3 px-3`}
           onClick={() => {
-            if(downVoted) downVote();
+            if (downVoted) downVote();
             upVote();
           }}
         >
           <IoIosArrowUp />
         </div>
-        {ingredient.upVoted.length - ingredient.downVoted.length}
+        {totalVotes}
         <div
-          className={`${downVoted && "downVoted"} text-gray-400 cursor-pointer pb-3 px-3 `}
+          className={`${
+            downVoted && "downVoted"
+          } text-gray-400 cursor-pointer pb-3 px-3 `}
           onClick={() => {
-            if(upVoted) upVote();
+            if (upVoted) upVote();
             downVote();
           }}
         >
           <IoIosArrowDown />
         </div>
       </div>
+      <p className="w-40 leading-5 truncate-2">
       {ingredient.name}
+
+      </p>
+      <IngredientCardFacts
+        portion={ingredient.portion_size}
+        macros={ingredient.macros}
+      />
+      <MacroDoug data={macroData} />
     </div>
   );
 }

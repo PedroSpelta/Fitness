@@ -1,12 +1,15 @@
 import { updateDoc } from "firebase/firestore";
+import { useSession } from "next-auth/react";
 import React from "react";
 import { getUserDocsHelper } from "../libs/firebaseHelper";
 import { ITodayMeal } from "../libs/interfaces";
 import { getTodayDateString } from "../utils/date";
 
 function AddMealButton({ meal }: { meal: ITodayMeal }) {
+  const{ data} = useSession();
   const clickHandler = async () => {
-    const userDocs = await getUserDocsHelper();
+    const userDocs = await getUserDocsHelper(data?.user?.email as string);
+    if(!userDocs ) return;
     const userData = userDocs.data();
     const today = getTodayDateString();
     const todayPrevMeals = userData.dates[today] || [];

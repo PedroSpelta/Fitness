@@ -13,7 +13,7 @@ const Index: NextPage = () => {
     <div className="flex flex-col items-center bg-[#fafafa] h-screen">
       <Header />
       <div className="bg-blue-900 w-screen flex justify-center">
-        <p className="text-white text-lg font-semibold py-3 max-w-3xl w-full">
+        <p className="text-white text-lg font-semibold py-3 max-w-3xl w-full ml-3 md:ml-0">
           Seu diário
         </p>
       </div>

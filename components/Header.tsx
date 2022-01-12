@@ -15,7 +15,7 @@ function Header() {
       <div
         className={`text-blue-700 text-2xl font-black h-20 max-w-3xl w-full flex justify-between items-center`}
       >
-        <p>Smart Lifter</p>
+        <p className="ml-3 md:ml-0">Smart Lifter</p>
         <div
           className={`font-normal transition-all flex overflow-hidden flex-shrink-0 items-center h-full w-[150px] slide-wrapper`}
           onMouseEnter={() => setShowSignOut(true)}
@@ -57,10 +57,10 @@ function Header() {
               Usuário
             </p>
           </Link>
-          <Link href={"/ingredient/add"} passHref>
+          <Link href={"/ingredient/"} passHref>
             <p
               className={` p-3 cursor-pointer ${
-                pathname === "/ingredient/add" && "bg-blue-900"
+                pathname === "/ingredient" && "bg-blue-900"
               }`}
             >
               Igredientes

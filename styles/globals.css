@@ -80,5 +80,13 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .downVoted {
-  color: red
+  color: red;
+}
+
+.truncate-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

@@ -1,5 +1,8 @@
 import {
+  addDoc,
   collection,
+  getDoc,
+  getDocs,
   onSnapshot,
   query,
   updateDoc,
@@ -32,7 +35,7 @@ const dic: { [char: string]: number } = {
 const DataContext = createContext<IDataContext>(null!);
 
 export const DataWrapper: FC = ({ children }) => {
-  const {data} = useSession();
+  const { data } = useSession();
   const [sex, setSex] = useState(defaultUserData.sex);
   const [height, setHeight] = useState(defaultUserData.height);
   const [weight, setWeight] = useState(defaultUserData.weight);
@@ -48,24 +51,30 @@ export const DataWrapper: FC = ({ children }) => {
   const [fatPerDay, setFatPerDay] = useState(0);
   const [carbPerDay, setCarbPerDay] = useState(0);
   const [userDates, setUserDates] = useState({
-     "01/01/2022": [{
-       ingredients:[{
-        carb: 0,
-        fat: 0,
-        name: "chicken",
-        prot: 30,
-        quantity: 100,
-       }],
-       name:'almoço',
-     }]
+    "01/01/2022": [
+      {
+        ingredients: [
+          {
+            carb: 0,
+            fat: 0,
+            name: "chicken",
+            prot: 30,
+            quantity: 100,
+          },
+        ],
+        name: "almoço",
+      },
+    ],
   });
 
   const { setTodayMeals } = useFoodContext();
 
   useEffect(() => {
     const getUserData = async () => {
-      const userDoc = await getUserDocsHelper();
+      const userDoc = await getUserDocsHelper(data?.user?.email as string);
+      if(!userDoc) return;
       const userData = userDoc.data().personal_info;
+      if(!userData.prot_goal) return
       const dateString = getTodayDateString();
 
       setProtPerDay(Number(userData.prot_goal.toFixed(0)));
@@ -81,18 +90,31 @@ export const DataWrapper: FC = ({ children }) => {
       setSex(userData.sex);
       setObjective(userData.objective);
       setType(userData.type);
-      
-      if ( !data ) return
-      
-      const q = query(collection(db, "users"), where("email", "==", data.user?.email));
 
-      const unsubscribe = onSnapshot(q, (doc) => {                
+      if (!data) return;
+
+      const q = query(
+        collection(db, "users"),
+        where("email", "==", data.user?.email)
+      );
+      console.log((await getDocs(q)).docs);
+
+      if ((await getDocs(q)).docs.length === 0) {
+        const usersColl = collection(db, "users");
+        await addDoc(usersColl, {
+          email: data.user?.email,
+          dates: {},
+          personal_info: {},
+        });
+      }
+
+      const unsubscribe = onSnapshot(q, (doc) => {
         setUserDates(doc.docs[0].data().dates);
         setTodayMeals(doc.docs[0].data().dates[dateString] || []);
       });
     };
     getUserData();
-  }, [setTodayMeals,data]);
+  }, [setTodayMeals, data]);
 
   useEffect(() => {
     const basalA: number =
@@ -117,7 +139,7 @@ export const DataWrapper: FC = ({ children }) => {
   }, [objective, caloriesBasal, setCaloriesGoal]);
 
   const updateUserInfo = async () => {
-    const data = {
+    const personalData = {
       age,
       sex,
       type,
@@ -133,9 +155,10 @@ export const DataWrapper: FC = ({ children }) => {
       carb_goal: carbkg * weight,
     };
 
-    const userDoc = await getUserDocsHelper();
+    const userDoc = await getUserDocsHelper(data?.user?.email as string);
+    if (!userDoc) return;
     const userRef = userDoc.ref;
-    updateDoc(userRef, { personal_info: data });
+    updateDoc(userRef, { personal_info: personalData });
   };
 
   return (
