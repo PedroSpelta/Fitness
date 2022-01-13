@@ -65,29 +65,50 @@ function DailyDashboard() {
 
       {/* card de macros do dia */}
       <DailyDashboardCard cols={1}>
-        <div className=" h-full flex items-end gap-2 justify-center text-sm font-semibold mx-auto ">
-          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+        <div className="flex">
+          <DailyDashboarMacro
+            done={consumedMacros.fat}
+            total={fatPerDay}
+            bgColor="#FFCE56"
+            label="Gordura"
+          />
+          <DailyDashboarMacro
+            done={consumedMacros.prot}
+            total={protPerDay}
+            bgColor="#FF6384"
+            label="Proteina"
+          />
+          <DailyDashboarMacro
+            done={consumedMacros.carb}
+            total={carbPerDay}
+            bgColor="#36A2EB"
+            label="Carbo"
+          />
+        </div>
+
+        {/* <div className=" h-full flex items-end gap-2 justify-center text-sm font-semibold mx-auto ">
+          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-10 md:w-10">
             <p className="text-center">{`${consumedFatP}%`}</p>
             <div
-              className="bg-[#FFC534] w-5 md:w-10"
+              className="bg-[#FFC534] w-10 md:w-10"
               style={{ height: `${consumedFatP}%` }}
             ></div>
           </div>
-          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-10 md:w-10">
             <p className="text-center">{`${consumedProtP}%`}</p>
             <div
-              className="bg-[#ff6384] w-5 md:w-10"
+              className="bg-[#ff6384] w-10 md:w-10"
               style={{ height: `${consumedProtP}%` }}
             ></div>
           </div>
-          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-5 md:w-10">
+          <div className="h-full flex flex-col bg-[#f1f1f1] justify-end w-10 md:w-10">
             <p className="text-center">{`${consumedCarbP}%`}</p>
             <div
               className="bg-[#36a2eb] w-5 md:w-10"
               style={{ height: `${consumedCarbP}%` }}
             ></div>
           </div>
-        </div>
+        </div> */}
       </DailyDashboardCard>
 
       {/* card de calorias do dia */}
