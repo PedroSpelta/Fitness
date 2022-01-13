@@ -19,7 +19,7 @@ ChartJS.register(
   Legend
 );
 
-const getOrCreateTooltip = (chart) => {
+const getOrCreateTooltip = (chart: any) => {
   let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
   if (!tooltipEl) {
@@ -43,7 +43,7 @@ const getOrCreateTooltip = (chart) => {
   return tooltipEl;
 };
 
-const externalTooltipHandler = (context) => {
+const externalTooltipHandler = (context: any) => {
   // Tooltip Element
   const {chart, tooltip} = context;
   const tooltipEl = getOrCreateTooltip(chart);
@@ -57,16 +57,16 @@ const externalTooltipHandler = (context) => {
   // Set Text
   if (tooltip.body) {
     const titleLines = tooltip.title || [];
-    const bodyLines = tooltip.body.map(b => b.lines);
+    const bodyLines = tooltip.body.map((b: any) => b.lines);
 
     const tableHead = document.createElement('thead');
 
-    titleLines.forEach(title => {
+    titleLines.forEach((title:any) => {
       const tr = document.createElement('tr');
-      tr.style.borderWidth = 0;
+      tr.style.borderWidth = (0).toString();
 
       const th = document.createElement('th');
-      th.style.borderWidth = 0;
+      th.style.borderWidth = (0).toString();
       const text = document.createTextNode(title);
 
       th.appendChild(text);
@@ -75,7 +75,7 @@ const externalTooltipHandler = (context) => {
     });
 
     const tableBody = document.createElement('tbody');
-    bodyLines.forEach((body, i) => {
+    bodyLines.forEach((body:any, i:number) => {
       const colors = tooltip.labelColors[i];
 
       const span = document.createElement('span');
@@ -89,10 +89,10 @@ const externalTooltipHandler = (context) => {
 
       const tr = document.createElement('tr');
       tr.style.backgroundColor = 'inherit';
-      tr.style.borderWidth = 0;
+      tr.style.borderWidth = (0).toString();
 
       const td = document.createElement('td');
-      td.style.borderWidth = 0;
+      td.style.borderWidth = (0).toString();
 
       const text = document.createTextNode(body);
 
@@ -131,7 +131,6 @@ const barOptions = {
     legend: { display: false },
     tooltip: {
       enabled: false,
-      position: "nearest",
       external: externalTooltipHandler,
     },
   },
